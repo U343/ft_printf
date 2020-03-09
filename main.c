@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   d_flag.c                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/09 15:37:22 by wanton            #+#    #+#             */
-/*   Updated: 2020/03/09 15:55:57 by wanton           ###   ########.fr       */
+/*   Created: 2020/02/12 13:18:14 by bedavis           #+#    #+#             */
+/*   Updated: 2020/03/09 16:00:12 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "printf.h"
 
-int		d_flag(t_printf *p/*, int w, int pres*/)
+int main(void)
 {
-	int		n;
-	char	*res;
-
-	n = va_arg(p->ap, int);
-	res = ft_itoa(n);
-	while (*res)
-		buffer(p, res++, 1);
+	printf("------------------\n");
+	printf("Hello, World!    num = %+d\n", 55);
+	printf("My:\n");
+	ft_printf("Hello, %s!\nIt's %d!!\n%s...", "WORLD", 4, "but");
 	return (0);
 }
