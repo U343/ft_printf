@@ -26,6 +26,7 @@ typedef struct			s_printf
 	char				buff[BUF_SIZE];
 	va_list				ap;
 	char				*format;
+	char				flag;
 }						t_printf;
 
 /*
