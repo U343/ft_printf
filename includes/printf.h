@@ -6,7 +6,7 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:37:53 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/09 14:17:00 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/09 15:39:41 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void					buffer(t_printf *p, void *new, size_t size);
 void					parse(t_printf *p);
 
 
-char					*s_flag(t_printf *p);
+/*
+**Flag functions
+*/
+
+int					s_flag(t_printf *p/*, int w, int pres*/);
+int					d_flag(t_printf *p/*, int w, int pres*/);
 
 #endif

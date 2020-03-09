@@ -6,7 +6,7 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 14:55:16 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/09 14:47:54 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/09 15:29:05 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static void	init_flags(char *f[4])
 	f[3] = NULL;
 }
 
-static void	init_flag_func(char *(*b[4]) (t_printf *p))
+static void	init_flag_func(int (*b[4]) (t_printf *p))
 {
 	b[0] = &s_flag;
-	b[1] = NULL;
+	b[1] = &d_flag;
 	b[3] = NULL;
 }
 
@@ -31,7 +31,7 @@ void		parse(t_printf *p)
 {
 	size_t 	i;
 	char 	*flags[4];
-	char	*(*builtin_func[4]) (t_printf *p);
+	int 	(*builtin_func[4]) (t_printf *p);
 
 	i = 0;
 	init_flags(flags);

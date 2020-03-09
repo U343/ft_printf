@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s_flag.c                                           :+:      :+:    :+:   */
+/*   d_flag.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/09 14:18:57 by wanton            #+#    #+#             */
-/*   Updated: 2020/03/09 14:28:15 by wanton           ###   ########.fr       */
+/*   Created: 2020/03/09 15:37:22 by wanton            #+#    #+#             */
+/*   Updated: 2020/03/09 15:46:47 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char *s_flag(t_printf *p)
+int		d_flag(t_printf *p/*, int w, int pres*/)
 {
-	char *res;
+	int		n;
+	char	*res;
 
-	res = va_arg(p->ap, char *);
-	ft_putstr(res);
-	return res;
+	n = va_arg(p->ap, int);
+	res = ft_itoa(n);
+	while (*res)
+		buffer(p, res++, 1);
+	return (0);
 }
-

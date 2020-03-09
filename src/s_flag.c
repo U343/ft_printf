@@ -6,19 +6,19 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:18:57 by wanton            #+#    #+#             */
-/*   Updated: 2020/03/09 14:45:08 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/09 15:47:17 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char *s_flag(t_printf *p)
+int		s_flag(t_printf *p)
 {
 	char *res;
 
 	res = va_arg(p->ap, char*);
 	while (*res)
 		buffer(p, res++, 1);
-	return (NULL);
+	return (0);
 }
 

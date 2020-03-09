@@ -25,8 +25,9 @@ LIB_HEADER = libft/includes/
 
 SOURCES =	ft_printf.c \
 			parser.c \
-			s_flag.c
-
+			s_flag.c \
+			d_flag.c
+			
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
