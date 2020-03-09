@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   s_flag.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/12 13:18:14 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/09 14:15:54 by wanton           ###   ########.fr       */
+/*   Created: 2020/03/09 14:18:57 by wanton            #+#    #+#             */
+/*   Updated: 2020/03/09 14:45:08 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "printf.h"
 
-int main(void)
+char *s_flag(t_printf *p)
 {
-	printf("------------------\n");
-	printf("Printf:\n");
-	printf("Hello, World!\n");
-	printf("My:\n");
-	ft_printf("Hello, %s!\n", "World");
-	return (0);
+	char *res;
+
+	res = va_arg(p->ap, char*);
+	while (*res)
+		buffer(p, res++, 1);
+	return (NULL);
 }
+

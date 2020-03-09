@@ -6,14 +6,45 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 14:55:16 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/04 14:55:16 by bedavis          ###   ########.fr       */
+/*   Updated: 2020/03/09 14:47:54 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
+static void	init_flags(char *f[4])
+{
+	f[0] = "s";
+	f[1] = "d";
+	f[2] = "c";
+	f[3] = NULL;
+}
+
+static void	init_flag_func(char *(*b[4]) (t_printf *p))
+{
+	b[0] = &s_flag;
+	b[1] = NULL;
+	b[3] = NULL;
+}
+
 void		parse(t_printf *p)
 {
-	return;
+	size_t 	i;
+	char 	*flags[4];
+	char	*(*builtin_func[4]) (t_printf *p);
+
+	i = 0;
+	init_flags(flags);
+	init_flag_func(builtin_func);
+	while (flags[i])
+	{
+		if ((ft_strncmp(p->format, flags[i], ft_strlen(flags[i])) == 0))
+		{
+			(*builtin_func[i])(p);
+			p->format += (ft_strlen(flags[i]) - 1);
+			break;
+		}
+		i++;
+	}
 }
 
