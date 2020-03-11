@@ -6,7 +6,7 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:37:53 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/09 15:55:57 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/11 13:31:36 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define PRINTF_H
 
 #include <stdarg.h>
+#include <stdio.h> // delete
 #include "libft.h"
 
 #define BUF_SIZE		64
@@ -21,8 +22,10 @@
 typedef struct			s_printf
 {
 	int					len;
+	int 				w;
 	int					fd;
 	int					buffer_index;
+	int 				prec;
 	char				buff[BUF_SIZE];
 	va_list				ap;
 	char				*format;
@@ -41,7 +44,7 @@ void					parse(t_printf *p);
 **Flag functions
 */
 
-int					s_flag(t_printf *p/*, int w, int pres*/);
-int					d_flag(t_printf *p/*, int w, int pres*/);
+int					s_flag(t_printf *p);
+int					d_flag(t_printf *p);
 
 #endif
