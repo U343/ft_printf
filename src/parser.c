@@ -6,7 +6,7 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 14:55:16 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/11 13:21:03 by bedavis          ###   ########.fr       */
+/*   Updated: 2020/03/11 13:45:06 by bedavis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ static void	init_flag_func(int (*b[4]) (t_printf *p))
 	b[0] = &s_flag;
 	b[1] = &d_flag;
 	b[3] = NULL;
+}
+
+void init_struct(t_printf *p)
+{
+	p->flag = 0;
+	p->w = 1;
+	p->prec = 1;
+	p->size = NULL;
+	p->type = 0;
 }
 
 void parse_size(t_printf *p)
@@ -74,10 +83,12 @@ void parse_opt(t_printf *p)
 		while ((*p->format >= '0') && (*p->format <= '9'))
 			++p->format;
 	}
-	//ft_putstr(p->format);
 	//size and type parsing
 	parse_size(p);
-
+	if (ft_strchr("cspdiouxX", *p->format) != NULL)
+		p->type = *p->format;
+	else
+		p->type = 0;
 }
 
 void		parse(t_printf *p)
@@ -89,10 +100,11 @@ void		parse(t_printf *p)
 	i = 0;
 	init_flags(flags);
 	init_flag_func(builtin_func);
+	init_struct(p);
 	parse_opt(p);
 	while (flags[i])
 	{
-		if ((ft_strncmp(p->format, flags[i], ft_strlen(flags[i])) == 0))
+		if ((ft_strncmp(&p->type, flags[i], ft_strlen(flags[i])) == 0))
 		{
 			(*builtin_func[i])(p);
 			//p->format += (ft_strlen(flags[i]) - 1);
