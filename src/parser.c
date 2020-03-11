@@ -6,7 +6,7 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 14:55:16 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/11 17:01:40 by bedavis          ###   ########.fr       */
+/*   Updated: 2020/03/11 17:30:26 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void parse_size(t_printf *p)
 		if (p->format[1] == 'l' && ++p->format)
 		{
 			ft_strcpy(p->size, "ll");
-			p->format+=2;
+			p->format++;
 		}
 		else {
 			p->size[0] = 'l';
@@ -55,7 +55,7 @@ void parse_size(t_printf *p)
 	{
 		if (p->format[1] == 'h' && ++p->format) {
 			ft_strcpy(p->size, "hh");
-			p->format += 2;
+			p->format++;
 		} else {
 			p->size[0] = 'h';
 			p->format++;

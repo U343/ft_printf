@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 15:37:22 by wanton            #+#    #+#             */
-/*   Updated: 2020/03/11 17:02:49 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/11 17:29:00 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,20 @@ void	print_width(t_printf *p, size_t size)
 
 void	print_round(t_printf *p, size_t size)
 {
-	size_t		round;
+	size_t	round;
 
+	/*if (ft_strrchr(p->flag, '+'))
+		buffer(p, "+", 1);*/
+	if (p->prec < 0)
+		return ;
 	round = p->prec;
-	if (ft_strrchr(p->flag, '+'))
-		buffer(p, "+", 1);
 	while (round-- > size)
 		buffer(p, "0", 1);
 }
 
 /*
 **Function call va_arg for different decimal types
-**       Returned: result of the va_arg 
+**       Returned: result of the va_arg
 */
 
 long long	check_type_size(t_printf *p)
@@ -67,14 +69,14 @@ long long	check_type_size(t_printf *p)
 	char	*size;
 
 	size = p->size;
-	if (ft_strcmp(size, "l") == 0)
-		return ((long long)va_arg(p->ap, long));
-	else if (ft_strcmp(size, "h") == 0)
-		return ((long long)va_arg(p->ap, short));
-	else if (ft_strcmp(size, "ll") == 0)
+	if (ft_strcmp(size, "ll") == 0)
 		return (va_arg(p->ap, long long));
 	else if (ft_strcmp(size, "hh") == 0)
-		return ((long long)va_arg(p->ap, char));
+		return ((long long)va_arg(p->ap, int));
+	else if (ft_strcmp(size, "l") == 0)
+		return (va_arg(p->ap, long));
+	else if (ft_strcmp(size, "h") == 0)
+		return ((long long)va_arg(p->ap, int));
 	else
 		return ((long long)va_arg(p->ap, int));
 }
@@ -90,6 +92,7 @@ int			d_flag(t_printf *p)
 	size_t	size;
 
 	ft_putstr("in d_flag\n");  //delete
+	ft_putendl(p->flag);
 	res = ft_itoall(check_type_size(p));
 	size = ft_strlen(res);
 	if (!ft_strrchr(p->flag, '-'))
