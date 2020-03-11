@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 15:37:22 by wanton            #+#    #+#             */
-/*   Updated: 2020/03/11 15:32:45 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/11 15:52:29 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	print_width(t_printf *p, size_t size)
 			//ft_putstr("ok5\n");
 			buffer(p, " ", 1);
 		}
-		width++;
+		//width++;
 	}
 	if (ft_strrchr(p->flag, '+'))
 		width--;
@@ -77,7 +77,6 @@ int		d_flag(t_printf *p)
 	char	*res;
 	size_t	size;
 
-	ft_putstr("ok\n");
 	n = va_arg(p->ap, int);
 	ft_putstr("prec = ");
 	ft_putnbr(p->prec);

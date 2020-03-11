@@ -6,7 +6,7 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 14:55:16 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/11 15:06:05 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/11 15:15:55 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ void parse_opt(t_printf *p)
 		while ((*p->format >= '0') && (*p->format <= '9'))
 			++p->format;
 	}
-	if (*p->format == '.')
+	if (*p->format++ == '.')
 	{
 		p->prec = ft_atoi(p->format) > 1 ? ft_atoi(p->format) : 1;
-		p->format++;
+		//p->format++;
 		while ((*p->format >= '0') && (*p->format <= '9'))
 			++p->format;
 	}

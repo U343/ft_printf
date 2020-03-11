@@ -6,7 +6,7 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 13:18:14 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/11 15:33:46 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/11 15:55:28 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int main(void)
 	long long	n=4444444444444441;
 	printf("Hello\n");
 	printf("------------------\n");
-	printf("num = %04.2dF\n", 4);
+	printf("num = %04.4dF\n", 4);
 	printf("My:\n");
-	ft_printf("num = %04.2dF\n", 4);
+	ft_printf("num = %04.4dF\n", 4);
 	return (0);
 }
