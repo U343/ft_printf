@@ -6,7 +6,7 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:37:53 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/09 15:39:41 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/11 12:07:08 by bedavis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ typedef struct			s_printf
 	va_list				ap;
 	char				*format;
 	char				flag;
+	int					w;
+	int					prec;
+	char				*size;
+	char				type;
 }						t_printf;
 
 /*

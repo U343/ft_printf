@@ -6,7 +6,7 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 14:55:16 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/09 18:05:25 by bedavis          ###   ########.fr       */
+/*   Updated: 2020/03/11 13:21:03 by bedavis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,35 @@ static void	init_flag_func(int (*b[4]) (t_printf *p))
 	b[3] = NULL;
 }
 
+void parse_size(t_printf *p)
+{
+	p->size = ft_strnew(2);
+	if (*p->format == 'l')
+	{
+		if (p->format[1] == 'l' && ++p->format)
+		{
+			ft_strcpy(p->size, "ll");
+			p->format+=2;
+		}
+		else {
+			p->size[0] = 'l';
+			p->format++;
+		}
+	}
+	else if (*p->format == 'h')
+	{
+		if (p->format[1] == 'h' && ++p->format) {
+			ft_strcpy(p->size, "hh");
+			p->format += 2;
+		} else {
+			p->size[0] = 'h';
+			p->format++;
+		}
+	}
+}
+
 void parse_opt(t_printf *p)
 {
-	int w; //width
-	int pres; //precision
-
-	w = 1;
-	pres = 1;
 	if (ft_strchr("%#0-+ ", *p->format) != NULL)
 	{
 		p->flag = *p->format;
@@ -41,17 +63,21 @@ void parse_opt(t_printf *p)
 	}
 	if ((*p->format > '0') && (*p->format <= '9'))
 	{
-		w = ft_atoi(p->format) > 1 ? ft_atoi(p->format) : 1;
+		p->w = ft_atoi(p->format) > 1 ? ft_atoi(p->format) : 1;
 		while ((*p->format >= '0') && (*p->format <= '9'))
 			++p->format;
 	}
-	if (*p->format++ == '.')
+	if (*p->format == '.')
 	{
-		pres = ft_atoi(p->format) > 1 ? ft_atoi(p->format) : 1;
+		p->prec = ft_atoi(p->format) > 1 ? ft_atoi(p->format) : 1;
+		p->format++;
 		while ((*p->format >= '0') && (*p->format <= '9'))
 			++p->format;
 	}
-	//add here size and type parsing
+	//ft_putstr(p->format);
+	//size and type parsing
+	parse_size(p);
+
 }
 
 void		parse(t_printf *p)
@@ -69,7 +95,7 @@ void		parse(t_printf *p)
 		if ((ft_strncmp(p->format, flags[i], ft_strlen(flags[i])) == 0))
 		{
 			(*builtin_func[i])(p);
-			p->format += (ft_strlen(flags[i]) - 1);
+			//p->format += (ft_strlen(flags[i]) - 1);
 			break;
 		}
 		i++;
