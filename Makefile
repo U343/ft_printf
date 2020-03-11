@@ -6,7 +6,7 @@
 #    By: wanton <wanton@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 14:07:05 by wanton            #+#    #+#              #
-#    Updated: 2020/03/09 14:27:04 by wanton           ###   ########.fr        #
+#    Updated: 2020/03/09 15:47:52 by wanton           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SOURCES =	ft_printf.c \
 			parser.c \
 			s_flag.c \
 			d_flag.c
-			
+
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
