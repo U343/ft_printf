@@ -6,7 +6,7 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 14:55:16 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/11 13:45:06 by bedavis          ###   ########.fr       */
+/*   Updated: 2020/03/11 15:06:05 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static void	init_flag_func(int (*b[4]) (t_printf *p))
 
 void init_struct(t_printf *p)
 {
-	p->flag = 0;
+	p->flag[0] = 0;
 	p->w = 1;
-	p->prec = 1;
+	p->prec = -1;
 	p->size = NULL;
 	p->type = 0;
 }
@@ -67,7 +67,7 @@ void parse_opt(t_printf *p)
 {
 	if (ft_strchr("%#0-+ ", *p->format) != NULL)
 	{
-		p->flag = *p->format;
+		p->flag[0] = *p->format;
 		p->format++;
 	}
 	if ((*p->format > '0') && (*p->format <= '9'))
