@@ -6,7 +6,7 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 14:55:16 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/11 17:30:26 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/11 17:31:55 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	init_flags(char *f[4])
 {
 	f[0] = "s";
 	f[1] = "d";
-	f[2] = "c";
+	f[2] = "i";
 	f[3] = NULL;
 }
 
@@ -24,6 +24,7 @@ static void	init_flag_func(int (*b[4]) (t_printf *p))
 {
 	b[0] = &s_flag;
 	b[1] = &d_flag;
+	b[2] = &d_flag;
 	b[3] = NULL;
 }
 

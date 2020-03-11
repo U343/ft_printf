@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 15:37:22 by wanton            #+#    #+#             */
-/*   Updated: 2020/03/11 17:29:00 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/11 17:43:14 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	add_to_buff(char *s, t_printf *p)
 		buffer(p, tmp++, 1);
 }
 
-void	print_width(t_printf *p, size_t size)
+void	print_width(t_printf *p, size_t size, int *f_p)
 {
 	char	*c;
 	size_t 	width;
@@ -33,6 +33,8 @@ void	print_width(t_printf *p, size_t size)
 	else
 		c = " ";
 	tmp1 = size;
+	if (ft_strrchr(p->flag, '+'))
+		width--;
 	if (p->prec != -1 && p->prec > 0)
 	{
 		tmp1 = size > (size_t)p->prec ? size : p->prec;
@@ -40,18 +42,24 @@ void	print_width(t_printf *p, size_t size)
 			buffer(p, " ", 1);
 		width++;
 	}
-	if (ft_strrchr(p->flag, '+'))
-		width--;
+	if (ft_strrchr(p->flag, '+') && ft_strcmp(c, "0") == 0 && (*f_p) == 0)
+	{
+		buffer(p, "+", 1);
+		*f_p = 1;
+	}
 	while (width-- > tmp1)
 		buffer(p, c, 1);
 }
 
-void	print_round(t_printf *p, size_t size)
+void	print_round(t_printf *p, size_t size, int *f_p)
 {
 	size_t	round;
 
-	/*if (ft_strrchr(p->flag, '+'))
-		buffer(p, "+", 1);*/
+	if (ft_strrchr(p->flag, '+') && (*f_p) == 0)
+	{
+		buffer(p, "+", 1);
+		(*f_p) = 1;
+	}
 	if (p->prec < 0)
 		return ;
 	round = p->prec;
@@ -88,18 +96,20 @@ long long	check_type_size(t_printf *p)
 
 int			d_flag(t_printf *p)
 {
+	int 	flag_plus;
 	char	*res;
 	size_t	size;
 
+	flag_plus = 0;
 	ft_putstr("in d_flag\n");  //delete
 	ft_putendl(p->flag);
 	res = ft_itoall(check_type_size(p));
 	size = ft_strlen(res);
 	if (!ft_strrchr(p->flag, '-'))
-		print_width(p, size);
-	print_round(p, size);
+		print_width(p, size, &flag_plus);
+	print_round(p, size, &flag_plus);
 	add_to_buff(res, p);
 	if (ft_strrchr(p->flag, '-'))
-		print_width(p, size);
+		print_width(p, size, &flag_plus);
 	return (0);
 }
