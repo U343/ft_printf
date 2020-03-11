@@ -29,7 +29,7 @@ typedef struct			s_printf
 	char				buff[BUF_SIZE];
 	va_list				ap;
 	char				*format;
-	char				flag[4];
+	char				*flag;
 	char				*size;
 	char				type;
 }						t_printf;

@@ -6,7 +6,7 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 14:55:16 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/11 15:15:55 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/11 17:01:40 by bedavis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ static void	init_flag_func(int (*b[4]) (t_printf *p))
 
 void init_struct(t_printf *p)
 {
-	p->flag[0] = 0;
+	p->flag = "";
 	p->w = 1;
 	p->prec = -1;
-	p->size = NULL;
+	p->size = "";
 	p->type = 0;
 }
 
 void parse_size(t_printf *p)
 {
-	p->size = ft_strnew(2);
+
 	if (*p->format == 'l')
 	{
 		if (p->format[1] == 'l' && ++p->format)
@@ -65,9 +65,12 @@ void parse_size(t_printf *p)
 
 void parse_opt(t_printf *p)
 {
-	if (ft_strchr("%#0-+ ", *p->format) != NULL)
+	p->size = ft_strnew(3);
+	p->flag = ft_strnew(7);
+	while (ft_strchr("%#0-+ ", *p->format) != NULL)
 	{
-		p->flag[0] = *p->format;
+		p->flag[ft_strlen(p->flag)] = *p->format;
+		p->flag[ft_strlen(p->flag)] = '\0';
 		p->format++;
 	}
 	if ((*p->format > '0') && (*p->format <= '9'))
@@ -76,10 +79,10 @@ void parse_opt(t_printf *p)
 		while ((*p->format >= '0') && (*p->format <= '9'))
 			++p->format;
 	}
-	if (*p->format++ == '.')
+	if (*p->format == '.')
 	{
+		p->format++;
 		p->prec = ft_atoi(p->format) > 1 ? ft_atoi(p->format) : 1;
-		//p->format++;
 		while ((*p->format >= '0') && (*p->format <= '9'))
 			++p->format;
 	}
