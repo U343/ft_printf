@@ -6,18 +6,18 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 13:18:14 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/09 16:00:12 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/11 13:36:06 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "printf.h"
 
 int main(void)
 {
+	long long	n=4444444444444441;
 	printf("------------------\n");
-	printf("Hello, World!    num = %+d\n", 55);
+	printf("num = %-04dF\n", 4);
 	printf("My:\n");
-	ft_printf("Hello, %s!\nIt's %d!!\n%s...", "WORLD", 4, "but");
+	ft_printf("num = %dF\n", 4);
 	return (0);
 }
