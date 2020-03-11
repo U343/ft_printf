@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 15:37:22 by wanton            #+#    #+#             */
-/*   Updated: 2020/03/11 15:52:29 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/11 16:06:57 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,30 @@ void	print_width(t_printf *p, size_t size)
 {
 	char	*c;
 	size_t 	width;
-	size_t	tmp;
+	size_t	tmp1;
+	size_t	tmp2;
 
 	width = p->w;
 	if (ft_strrchr(p->flag, '0') && !ft_strrchr(p->flag, '-'))
 		c = "0";
 	else
 		c = " ";
-	//ft_putstr("ok5\n");
+	tmp1 = size;
 	if (p->prec != -1 && p->prec > 0)
 	{
-		tmp = size > (size_t)p->prec ? size : p->prec;
-		while (width-- > tmp)
+		tmp1 = size > (size_t)p->prec ? size : p->prec;
+		while (width-- > tmp1)
 		{
 			//ft_putstr("ok5\n");
 			buffer(p, " ", 1);
 		}
-		//width++;
+		width++;
 	}
 	if (ft_strrchr(p->flag, '+'))
 		width--;
 	//printf("c = %s\n", c);
 	//printf("size = %d; width = %d\n", (int)size, width);
-	while (width-- > size)
+	while (width-- > tmp1)
 	{
 		//ft_putstr("ok5\n");
 		buffer(p, c, 1);
@@ -56,19 +57,13 @@ void	print_width(t_printf *p, size_t size)
 
 void	print_round(t_printf *p, size_t size)
 {
-	char	*c;
-	int		width;
+	size_t		round;
 
-	//ft_putstr("ok2\n");
-	width = p->prec - (int)size;
-	c = "0";
+	round = p->prec;
 	if (ft_strrchr(p->flag, '+'))
 		buffer(p, "+", 1);
-	while (width-- > (int)size)
-	{
-		//ft_putstr("ok4\n");
-		buffer(p, c, 1);
-	}
+	while (round-- > size)
+		buffer(p, "0", 1);
 }
 
 int		d_flag(t_printf *p)
