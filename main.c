@@ -1,24 +1,14 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/12 13:18:14 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/11 15:55:28 by wanton           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "printf.h"
 
-int main(void)
+int       main(void)
 {
-	long long	n=4444444444444441;
+	long	n=4;
 	printf("Hello\n");
 	printf("------------------\n");
-	printf("num = %04.4dF\n", 4);
+	printf("num = %+4liF\n", n);
 	printf("My:\n");
-	ft_printf("num = %04.4dF\n", 4);
+	ft_printf("num = %+4liF\n", n);
 	return (0);
 }

@@ -60,6 +60,7 @@ char				*ft_itoa(int n);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoall(long long n);
+char				*ft_itoa_base(long long value, int base);
 
 void				*ft_memset(void *b, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
