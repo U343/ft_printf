@@ -16,7 +16,6 @@ int		s_flag(t_printf *p)
 {
 	char *res;
 	int i;
-	int k;
 
 	i = 0;
 	res = va_arg(p->ap, char*);
@@ -27,12 +26,12 @@ int		s_flag(t_printf *p)
 		while (i++ < p->w)
 			buffer(p, " ", 1);
 	}
-	else // to do here!
+	else
 	{
-		k = ((int)ft_strlen(res) >= p->prec) ? -p->prec + p->w : p->w - ft_strlen(res);
-		while (k--)
+		while (i++ <= (int)(p->w - ft_strlen(res)))
 			buffer(p, " ", 1);
-		while (*res && (i++ < p->prec))
+		i = 0;
+		while (*res && ((i++ < p->prec) || (p->prec == -1)))
 			buffer(p, res++, 1);
 	}
 	return (0);
