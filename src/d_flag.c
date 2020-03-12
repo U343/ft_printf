@@ -28,12 +28,12 @@ void		print_width(t_printf *p, size_t size, int *f_p)
 	size_t	tmp1;
 
 	width = p->w;
-	if (ft_strrchr(p->flag, '0') && !ft_strrchr(p->flag, '-'))
+	if (((p->bit & FL_ZERO) > 0) && !((p->bit & FL_MINUS) > 0))
 		c = "0";
 	else
 		c = " ";
 	tmp1 = size;
-	if (ft_strrchr(p->flag, '+') && (p->type != 'x' && p->type != 'X'))
+	if (((p->bit & FL_PLUS) > 0) && (p->type != 'x' && p->type != 'X'))
 		width--;
 	if (p->prec != -1 && p->prec > 0)
 	{
@@ -42,7 +42,7 @@ void		print_width(t_printf *p, size_t size, int *f_p)
 			buffer(p, " ", 1);
 		width++;
 	}
-	if (ft_strrchr(p->flag, '+') && ft_strcmp(c, "0") == 0 && (*f_p) == 0
+	if (((p->bit & FL_PLUS) > 0) && ft_strcmp(c, "0") == 0 && (*f_p) == 0
 	&& (p->type != 'x' && p->type != 'X'))
 	{
 		buffer(p, "+", 1);
@@ -56,7 +56,7 @@ void		print_round(t_printf *p, size_t size, int *f_p)
 {
 	size_t	round;
 
-	if (ft_strrchr(p->flag, '+') && (*f_p) == 0
+	if (((p->bit & FL_PLUS) > 0) && (*f_p) == 0
 	&& (p->type != 'x' && p->type != 'X'))
 	{
 		buffer(p, "+", 1);
@@ -74,15 +74,6 @@ void		print_round(t_printf *p, size_t size, int *f_p)
 **       Returned: result of the va_arg
 */
 
-int 		check_base(char type)
-{
-	int		res;
-
-	if (type == 'd' || type == 'i')
-		return (10);
-	if (type == 'x' || type == 'X')
-		return (16);
-}
 
 long long	check_type_size(t_printf *p)
 {
@@ -116,17 +107,16 @@ int			d_flag(t_printf *p)
 	size_t	size;
 
 	flag_plus = 0;
-	ft_putstr("in d_flag\n");  //delete
-	ft_putendl(p->flag);
+	
 	format = (p->type == 'x' ? 32 : 0);
 	base = (p->type == 'x' || p->type == 'X' ? 16 : 10);
 	res = ft_itoa_base(check_type_size(p), base, format);
 	size = ft_strlen(res);
-	if (!ft_strrchr(p->flag, '-'))
+	if (!((p->bit & FL_MINUS) > 0))
 		print_width(p, size, &flag_plus);
 	print_round(p, size, &flag_plus);
 	add_to_buff(res, p);
-	if (ft_strrchr(p->flag, '-'))
+	if ((p->bit & FL_MINUS) > 0)
 		print_width(p, size, &flag_plus);
 	return (0);
 }

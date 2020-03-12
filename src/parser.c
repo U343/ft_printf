@@ -35,6 +35,7 @@ static void	init_flag_func(int (*b[6]) (t_printf *p))
 void init_struct(t_printf *p)
 {
 	p->flag = "";
+	p->bit = 0;
 	p->w = 1;
 	p->prec = -1;
 	p->size = "";
@@ -76,6 +77,7 @@ void parse_opt(t_printf *p)
 	{
 		p->flag[ft_strlen(p->flag)] = *p->format;
 		p->flag[ft_strlen(p->flag)] = '\0';
+		p->bit = 1 << ft_strpos("%#0-+ ", *p->format);
 		p->format++;
 	}
 	if ((*p->format > '0') && (*p->format <= '9'))

@@ -19,6 +19,13 @@
 
 #define BUF_SIZE		64
 
+# define FL_PERCENT		(1 << 0)
+# define FL_SHARP		(1 << 1)
+# define FL_ZERO		(1 << 2)
+# define FL_MINUS		(1 << 3)
+# define FL_PLUS		(1 << 4)
+# define FL_SPACE		(1 << 5)
+
 typedef struct			s_printf
 {
 	int					len;
@@ -30,6 +37,7 @@ typedef struct			s_printf
 	va_list				ap;
 	char				*format;
 	char				*flag;
+	int					bit;
 	char				*size;
 	char				type;
 }						t_printf;
