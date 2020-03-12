@@ -6,13 +6,13 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 15:37:22 by wanton            #+#    #+#             */
-/*   Updated: 2020/03/11 17:43:14 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/12 13:59:06 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	add_to_buff(char *s, t_printf *p)
+void		add_to_buff(char *s, t_printf *p)
 {
 	char	*tmp;
 
@@ -21,10 +21,10 @@ void	add_to_buff(char *s, t_printf *p)
 		buffer(p, tmp++, 1);
 }
 
-void	print_width(t_printf *p, size_t size, int *f_p)
+void		print_width(t_printf *p, size_t size, int *f_p)
 {
 	char	*c;
-	size_t 	width;
+	size_t	width;
 	size_t	tmp1;
 
 	width = p->w;
@@ -33,7 +33,7 @@ void	print_width(t_printf *p, size_t size, int *f_p)
 	else
 		c = " ";
 	tmp1 = size;
-	if (ft_strrchr(p->flag, '+'))
+	if (ft_strrchr(p->flag, '+') && (p->type != 'x' && p->type != 'X'))
 		width--;
 	if (p->prec != -1 && p->prec > 0)
 	{
@@ -42,7 +42,8 @@ void	print_width(t_printf *p, size_t size, int *f_p)
 			buffer(p, " ", 1);
 		width++;
 	}
-	if (ft_strrchr(p->flag, '+') && ft_strcmp(c, "0") == 0 && (*f_p) == 0)
+	if (ft_strrchr(p->flag, '+') && ft_strcmp(c, "0") == 0 && (*f_p) == 0
+	&& (p->type != 'x' && p->type != 'X'))
 	{
 		buffer(p, "+", 1);
 		*f_p = 1;
@@ -51,11 +52,12 @@ void	print_width(t_printf *p, size_t size, int *f_p)
 		buffer(p, c, 1);
 }
 
-void	print_round(t_printf *p, size_t size, int *f_p)
+void		print_round(t_printf *p, size_t size, int *f_p)
 {
 	size_t	round;
 
-	if (ft_strrchr(p->flag, '+') && (*f_p) == 0)
+	if (ft_strrchr(p->flag, '+') && (*f_p) == 0
+	&& (p->type != 'x' && p->type != 'X'))
 	{
 		buffer(p, "+", 1);
 		(*f_p) = 1;
@@ -71,6 +73,16 @@ void	print_round(t_printf *p, size_t size, int *f_p)
 **Function call va_arg for different decimal types
 **       Returned: result of the va_arg
 */
+
+int 		check_base(char type)
+{
+	int		res;
+
+	if (type == 'd' || type == 'i')
+		return (10);
+	if (type == 'x' || type == 'X')
+		return (16);
+}
 
 long long	check_type_size(t_printf *p)
 {
@@ -91,19 +103,24 @@ long long	check_type_size(t_printf *p)
 
 /*
 **Function for print d, ld, lld, hd and hhd
+** format - value fo xX flags: 0 for X and 32 for x
 **       Returned: 0 if successful
 */
 
 int			d_flag(t_printf *p)
 {
-	int 	flag_plus;
+	int		flag_plus;
+	int		format;
+	int		base;
 	char	*res;
 	size_t	size;
 
 	flag_plus = 0;
 	ft_putstr("in d_flag\n");  //delete
 	ft_putendl(p->flag);
-	res = ft_itoall(check_type_size(p));
+	format = (p->type == 'x' ? 32 : 0);
+	base = (p->type == 'x' || p->type == 'X' ? 16 : 10);
+	res = ft_itoa_base(check_type_size(p), base, format);
 	size = ft_strlen(res);
 	if (!ft_strrchr(p->flag, '-'))
 		print_width(p, size, &flag_plus);

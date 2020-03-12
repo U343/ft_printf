@@ -6,7 +6,7 @@
 /*   By: bedavis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 16:09:46 by bedavis           #+#    #+#             */
-/*   Updated: 2020/02/06 10:49:19 by bedavis          ###   ########.fr       */
+/*   Updated: 2020/03/12 13:20:27 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char				*ft_itoa(int n);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoall(long long n);
-char				*ft_itoa_base(long long value, int base);
+char				*ft_itoa_base(long long value, int base, int format);
 
 void				*ft_memset(void *b, int c, size_t n);
 void				ft_bzero(void *s, size_t n);

@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 13:14:08 by wanton            #+#    #+#             */
-/*   Updated: 2020/03/12 13:20:27 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/12 13:43:07 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ long long	ft_pow(long long nb, int pow)
 		return (nb * ft_pow(nb, pow - 1));
 }
 
-char		*ft_itoa_base(long long value, int base)
+char		*ft_itoa_base(long long value, int base, int format)
 {
 	int			i;
 	int			neg;
@@ -42,7 +42,7 @@ char		*ft_itoa_base(long long value, int base)
 	nbr[i + neg] = '\0';
 	while (i-- > 0)
 	{
-		nbr[i + neg] = (value % base) + (value % base > 9 ? 'A' - 10 : '0');
+		nbr[i + neg] = (value % base) + (value % base > 9 ? ('A' + format) - 10 : '0');
 		value = value / base;
 	}
 	if (neg)
