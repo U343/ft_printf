@@ -21,6 +21,7 @@
 
 size_t				ft_strlen(const char *str);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
+size_t				ft_strpos(const char *s, char c);
 
 int					ft_isalpha(int c);
 int					ft_islower(int c);

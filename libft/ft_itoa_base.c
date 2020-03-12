@@ -12,8 +12,6 @@
 
 #include "libft.h"
 
-#include <stdlib.h>
-
 long long	ft_pow(long long nb, int pow)
 {
 	if (pow == 0)
