@@ -19,7 +19,7 @@
 
 #define BUF_SIZE		64
 
-# define FL_PERCENT		(1 << 0)
+# define FL_PERC		(1 << 0)
 # define FL_SHARP		(1 << 1)
 # define FL_ZERO		(1 << 2)
 # define FL_MINUS		(1 << 3)
@@ -36,7 +36,6 @@ typedef struct			s_printf
 	char				buff[BUF_SIZE];
 	va_list				ap;
 	char				*format;
-	char				*flag;
 	int					bit;
 	char				*size;
 	char				type;
