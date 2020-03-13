@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 15:37:22 by wanton            #+#    #+#             */
-/*   Updated: 2020/03/13 11:50:30 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/13 13:26:43 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,36 @@ void		print_round(t_printf *p, size_t size)
 **       Returned: result of the va_arg
 */
 
+long long			check_minus(long long num, int format)
+{
+	if (num < 0)
+	{
+		if (format == 1)
+			return (9223372036854775808UL + num);
+		else
+			return (4294967296 + num);
+	}
+	return ((long long)num);
+}
 
-long long	check_type_size(t_printf *p)
+long long			check_type_size(t_printf *p)
 {
 	char	*size;
 
 	size = p->size;
+	if (p->type == 'x' || p->type == 'X')
+	{
+		if (ft_strcmp(size, "ll") == 0)
+			return (check_minus(va_arg(p->ap, long long), 1));
+		else if (ft_strcmp(size, "hh") == 0)
+			return (check_minus(va_arg(p->ap, int),2));
+		else if (ft_strcmp(size, "l") == 0)
+			return (check_minus(va_arg(p->ap, long), 2));
+		else if (ft_strcmp(size, "h") == 0)
+			return (check_minus(va_arg(p->ap, int),2));
+		else
+			return (check_minus(va_arg(p->ap, int), 2));
+	}
 	if (ft_strcmp(size, "ll") == 0)
 		return (va_arg(p->ap, long long));
 	else if (ft_strcmp(size, "hh") == 0)

@@ -6,13 +6,13 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 13:14:08 by wanton            #+#    #+#             */
-/*   Updated: 2020/03/12 13:43:07 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/13 13:06:17 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long long	ft_pow(long long nb, int pow)
+unsigned long long	ft_pow(unsigned long long nb, int pow)
 {
 	if (pow == 0)
 		return (1);
@@ -20,7 +20,7 @@ long long	ft_pow(long long nb, int pow)
 		return (nb * ft_pow(nb, pow - 1));
 }
 
-char		*ft_itoa_base(long long value, int base, int format)
+char				*ft_itoa_base(long long value, int base, int format)
 {
 	int			i;
 	int			neg;
@@ -34,7 +34,7 @@ char		*ft_itoa_base(long long value, int base, int format)
 			neg = 1;
 		value *= -1;
 	}
-	while (ft_pow(base, i) - 1 < value)
+	while (ft_pow(base, i) - 1 < (unsigned long long)value)
 		i++;
 	nbr = (char*)malloc(sizeof(nbr) * i);
 	nbr[i + neg] = '\0';
