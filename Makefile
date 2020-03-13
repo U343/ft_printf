@@ -16,7 +16,8 @@ NAME = libftprintf.a
 SOURCES =	ft_printf.c \
 			parser.c \
 			s_flag.c \
-			d_flag.c
+			d_flag.c \
+			c_flag.c
 
 #Compiler
 CC = gcc
