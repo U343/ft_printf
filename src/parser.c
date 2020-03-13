@@ -73,7 +73,7 @@ void parse_opt(t_printf *p)
 	p->size = ft_strnew(3);
 	while (ft_strchr("%#0-+ ", *p->format) != NULL)
 	{
-		p->bit = 1 << ft_strpos("%#0-+ ", *p->format);
+		p->bit |= 1 << ft_strpos("%#0-+ ", *p->format);
 		p->format++;
 	}
 	if ((*p->format > '0') && (*p->format <= '9'))

@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 15:37:22 by wanton            #+#    #+#             */
-/*   Updated: 2020/03/12 13:59:06 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/13 10:57:59 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		add_to_buff(char *s, t_printf *p)
 		buffer(p, tmp++, 1);
 }
 
-void		print_width(t_printf *p, size_t size, int *f_p)
+void		print_width(t_printf *p, size_t size)
 {
 	char	*c;
 	size_t	width;
@@ -33,7 +33,7 @@ void		print_width(t_printf *p, size_t size, int *f_p)
 	else
 		c = " ";
 	tmp1 = size;
-	if (((p->bit & FL_PLUS) > 0) && (p->type != 'x' && p->type != 'X'))
+	if (p->bit & FL_PLUS && p->type != 'x' && p->type != 'X')
 		width--;
 	if (p->prec != -1 && p->prec > 0)
 	{
@@ -42,25 +42,24 @@ void		print_width(t_printf *p, size_t size, int *f_p)
 			buffer(p, " ", 1);
 		width++;
 	}
-	if (((p->bit & FL_PLUS) > 0) && ft_strcmp(c, "0") == 0 && (*f_p) == 0
-	&& (p->type != 'x' && p->type != 'X'))
+	if (p->bit & FL_PLUS && ft_strcmp(c, "0") == 0
+	&& p->type != 'x' && p->type != 'X')
 	{
 		buffer(p, "+", 1);
-		*f_p = 1;
+		p->bit &= ~FL_PLUS;
 	}
 	while (width-- > tmp1)
 		buffer(p, c, 1);
 }
 
-void		print_round(t_printf *p, size_t size, int *f_p)
+void		print_round(t_printf *p, size_t size)
 {
 	size_t	round;
 
-	if (((p->bit & FL_PLUS) > 0) && (*f_p) == 0
-	&& (p->type != 'x' && p->type != 'X'))
+	if (p->bit & FL_PLUS && p->type != 'x' && p->type != 'X')
 	{
 		buffer(p, "+", 1);
-		(*f_p) = 1;
+		p->bit &= ~FL_PLUS;;
 	}
 	if (p->prec < 0)
 		return ;
@@ -100,23 +99,20 @@ long long	check_type_size(t_printf *p)
 
 int			d_flag(t_printf *p)
 {
-	int		flag_plus;
 	int		format;
 	int		base;
 	char	*res;
 	size_t	size;
 
-	flag_plus = 0;
-	
 	format = (p->type == 'x' ? 32 : 0);
 	base = (p->type == 'x' || p->type == 'X' ? 16 : 10);
 	res = ft_itoa_base(check_type_size(p), base, format);
 	size = ft_strlen(res);
-	if (!((p->bit & FL_MINUS) > 0))
-		print_width(p, size, &flag_plus);
-	print_round(p, size, &flag_plus);
+	if (p->bit ^ FL_MINUS)
+		print_width(p, size);
+	print_round(p, size);
 	add_to_buff(res, p);
-	if ((p->bit & FL_MINUS) > 0)
-		print_width(p, size, &flag_plus);
+	if (p->bit & FL_MINUS)
+		print_width(p, size);
 	return (0);
 }
