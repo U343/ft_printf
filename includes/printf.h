@@ -24,12 +24,18 @@
 # define FL_ZERO		(1 << 2)
 # define FL_MINUS		(1 << 3)
 # define FL_PLUS		(1 << 4)
-# define FL_SPACE		(1 << 5)
+# define FL_SPACE		(1 << 5
+
+# define FT_MIN(a, b)		(a < b) ? a : b
+# define FT_MAX(a, b)		(a > b) ? a : b
+# define FT_ABS(a)			(a < 0) ? -a : a
+# define FT_DABS(a)			(a < 0.0f) ? -a : a
 
 typedef struct			s_printf
 {
 	int					len;
 	int 				w;
+	int					is_w;
 	int					fd;
 	int					buffer_index;
 	int 				prec;

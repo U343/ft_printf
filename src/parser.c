@@ -36,6 +36,7 @@ void init_struct(t_printf *p)
 {
 	p->bit = 0;
 	p->w = 1;
+	p->is_w = 0;
 	p->prec = -1;
 	p->size = "";
 	p->type = 0;
@@ -79,6 +80,8 @@ void parse_opt(t_printf *p)
 	if ((*p->format > '0') && (*p->format <= '9'))
 	{
 		p->w = ft_atoi(p->format) > 1 ? ft_atoi(p->format) : 1;
+		if (p->w != 1)
+			p->is_w = 1;
 		while ((*p->format >= '0') && (*p->format <= '9'))
 			++p->format;
 	}
