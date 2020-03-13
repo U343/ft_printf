@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 15:37:22 by wanton            #+#    #+#             */
-/*   Updated: 2020/03/13 10:57:59 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/13 11:50:30 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,34 +21,54 @@ void		add_to_buff(char *s, t_printf *p)
 		buffer(p, tmp++, 1);
 }
 
+void		take_symbol(t_printf *p)
+{
+	if (p->bit & FL_PLUS && p->type != 'x' && p->type != 'X')
+	{
+		buffer(p, "+", 1);
+		p->bit &= ~FL_PLUS;
+		p->w--;
+	}
+	if (p->bit & FL_SHARP && p->type == 'x')
+	{
+		buffer(p, "0", 1);
+		buffer(p, "x", 1);
+		p->bit &= ~FL_SHARP;
+		p->w -= 2;
+	}
+	if (p->bit & FL_SHARP && p->type == 'X')
+	{
+		buffer(p, "0", 1);
+		buffer(p, "X", 1);
+		p->bit &= ~FL_SHARP;
+		p->w -= 2;
+	}
+}
+
 void		print_width(t_printf *p, size_t size)
 {
 	char	*c;
-	size_t	width;
 	size_t	tmp1;
 
-	width = p->w;
 	if (((p->bit & FL_ZERO) > 0) && !((p->bit & FL_MINUS) > 0))
 		c = "0";
 	else
 		c = " ";
 	tmp1 = size;
-	if (p->bit & FL_PLUS && p->type != 'x' && p->type != 'X')
-		width--;
+	if ((p->bit & FL_PLUS) && p->type != 'x' && p->type != 'X')
+		p->w--;
+	else if (p->bit & FL_SHARP && (p->type == 'x' || p->type == 'X'))
+		p->w -= 2;
 	if (p->prec != -1 && p->prec > 0)
 	{
 		tmp1 = size > (size_t)p->prec ? size : p->prec;
-		while (width-- > tmp1)
+		while ((size_t)p->w-- > tmp1)
 			buffer(p, " ", 1);
-		width++;
+		p->w++;
 	}
-	if (p->bit & FL_PLUS && ft_strcmp(c, "0") == 0
-	&& p->type != 'x' && p->type != 'X')
-	{
-		buffer(p, "+", 1);
-		p->bit &= ~FL_PLUS;
-	}
-	while (width-- > tmp1)
+	if (ft_strcmp(c, "0") == 0)
+		take_symbol(p);
+	while ((size_t)p->w-- > tmp1)
 		buffer(p, c, 1);
 }
 
@@ -56,11 +76,7 @@ void		print_round(t_printf *p, size_t size)
 {
 	size_t	round;
 
-	if (p->bit & FL_PLUS && p->type != 'x' && p->type != 'X')
-	{
-		buffer(p, "+", 1);
-		p->bit &= ~FL_PLUS;;
-	}
+	take_symbol(p);
 	if (p->prec < 0)
 		return ;
 	round = p->prec;
@@ -108,7 +124,7 @@ int			d_flag(t_printf *p)
 	base = (p->type == 'x' || p->type == 'X' ? 16 : 10);
 	res = ft_itoa_base(check_type_size(p), base, format);
 	size = ft_strlen(res);
-	if (p->bit ^ FL_MINUS)
+	if (!(p->bit & FL_MINUS))
 		print_width(p, size);
 	print_round(p, size);
 	add_to_buff(res, p);
