@@ -19,12 +19,11 @@
 
 #define BUF_SIZE		64
 
-# define FL_PERC		(1 << 0)
+# define FL_SPACE		(1 << 0)
 # define FL_SHARP		(1 << 1)
 # define FL_ZERO		(1 << 2)
 # define FL_MINUS		(1 << 3)
 # define FL_PLUS		(1 << 4)
-# define FL_SPACE		(1 << 5)
 
 # define FL_L				(1 << 6)
 # define FL_LL			(1 << 7)
@@ -68,5 +67,6 @@ void					parse(t_printf *p);
 int					s_flag(t_printf *p);
 int					d_flag(t_printf *p);
 int					c_flag(t_printf *p);
+int					pr_flag(t_printf *p);
 
 #endif

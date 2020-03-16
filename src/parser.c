@@ -12,7 +12,7 @@
 
 #include "printf.h"
 
-static void	init_flags(char *f[9])
+static void	init_flags(char *f[10])
 {
 	f[0] = "s";
 	f[1] = "d";
@@ -24,10 +24,11 @@ static void	init_flags(char *f[9])
 	f[5] = "c";
 	f[6] = "u";
 	f[7] = "o";
-	f[8] = NULL;
+	f[8] = "%";
+	f[9] = NULL;
 }
 
-static void	init_flag_func(int (*b[9]) (t_printf *p))
+static void	init_flag_func(int (*b[10]) (t_printf *p))
 {
 	b[0] = &s_flag;
 	b[1] = &d_flag;
@@ -37,7 +38,8 @@ static void	init_flag_func(int (*b[9]) (t_printf *p))
 	b[5] = &c_flag;
 	b[6] = &d_flag;
 	b[7] = &d_flag;
-	b[8] = NULL;
+	b[8] = &pr_flag;
+	b[9] = NULL;
 }
 
 void init_struct(t_printf *p)
@@ -80,9 +82,9 @@ void parse_size(t_printf *p)
 void parse_opt(t_printf *p)
 {
 	p->size = ft_strnew(3);
-	while (ft_strchr("%#0-+ ", *p->format) != NULL)
+	while (ft_strchr(" #0-+", *p->format) != NULL)
 	{
-		p->bit |= 1 << ft_strpos("%#0-+ ", *p->format);
+		p->bit |= 1 << ft_strpos(" #0-+", *p->format);
 		p->format++;
 	}
 	if ((*p->format > '0') && (*p->format <= '9'))
@@ -102,7 +104,7 @@ void parse_opt(t_printf *p)
 	}
 	//size and type parsing
 	parse_size(p);
-	if (ft_strchr("cspdiouxX", *p->format) != NULL)
+	if (ft_strchr("cspdiouxX%", *p->format) != NULL)
 		p->type = *p->format;
 	else
 		p->type = 0;

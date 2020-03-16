@@ -17,11 +17,12 @@ SOURCES =	ft_printf.c \
 			parser.c \
 			s_flag.c \
 			d_flag.c \
-			c_flag.c
+			c_flag.c \
+			pr_flag.c
 
 #Compiler
 CC = gcc
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = 
 
 #Ft library
 LIBFT = libft
