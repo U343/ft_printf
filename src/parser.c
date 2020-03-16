@@ -12,7 +12,7 @@
 
 #include "printf.h"
 
-static void	init_flags(char *f[7])
+static void	init_flags(char *f[9])
 {
 	f[0] = "s";
 	f[1] = "d";
@@ -22,10 +22,12 @@ static void	init_flags(char *f[7])
 	f[3] = "x";
 	f[4] = "X";
 	f[5] = "c";
-	f[6] = NULL;
+	f[6] = "u";
+	f[7] = "o";
+	f[8] = NULL;
 }
 
-static void	init_flag_func(int (*b[7]) (t_printf *p))
+static void	init_flag_func(int (*b[9]) (t_printf *p))
 {
 	b[0] = &s_flag;
 	b[1] = &d_flag;
@@ -33,7 +35,9 @@ static void	init_flag_func(int (*b[7]) (t_printf *p))
 	b[3] = &d_flag;
 	b[4] = &d_flag;
 	b[5] = &c_flag;
-	b[6] = NULL;
+	b[6] = &d_flag;
+	b[7] = &d_flag;
+	b[8] = NULL;
 }
 
 void init_struct(t_printf *p)
@@ -53,21 +57,21 @@ void parse_size(t_printf *p)
 	{
 		if (p->format[1] == 'l' && ++p->format)
 		{
-			ft_strcpy(p->size, "ll");
+			p->bit = 1 << 7;
 			p->format++;
 		}
 		else {
-			p->size[0] = 'l';
+			p->bit = 1 << 6;
 			p->format++;
 		}
 	}
 	else if (*p->format == 'h')
 	{
 		if (p->format[1] == 'h' && ++p->format) {
-			ft_strcpy(p->size, "hh");
+			p->bit = 1 << 9;
 			p->format++;
 		} else {
-			p->size[0] = 'h';
+			p->bit = 1 << 8;
 			p->format++;
 		}
 	}
@@ -107,8 +111,8 @@ void parse_opt(t_printf *p)
 void		parse(t_printf *p)
 {
 	size_t 	i;
-	char 	*flags[7];
-	int 	(*builtin_func[7]) (t_printf *p);
+	char 	*flags[9];
+	int 	(*builtin_func[9]) (t_printf *p);
 
 	i = 0;
 	init_flags(flags);

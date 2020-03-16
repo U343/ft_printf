@@ -15,7 +15,7 @@
 
 #include <stdarg.h>
 #include <stdio.h> // delete
-#include "libft.h"
+#include "../libft/includes/libft.h"
 
 #define BUF_SIZE		64
 
@@ -24,7 +24,12 @@
 # define FL_ZERO		(1 << 2)
 # define FL_MINUS		(1 << 3)
 # define FL_PLUS		(1 << 4)
-# define FL_SPACE		(1 << 5
+# define FL_SPACE		(1 << 5)
+
+# define FL_L				(1 << 6)
+# define FL_LL			(1 << 7)
+# define FL_H				(1 << 8)
+# define FL_HH			(1 << 9)
 
 # define FT_MIN(a, b)		(a < b) ? a : b
 # define FT_MAX(a, b)		(a > b) ? a : b

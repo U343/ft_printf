@@ -84,27 +84,46 @@ void		print_round(t_printf *p, size_t size)
 		buffer(p, "0", 1);
 }
 
+long long	unsig_format(long long num, t_printf *p)
+{
+	long long	res;
+
+	if (p->bit & FL_LL)
+		return (va_arg(p->ap, unsigned long long));
+	else if (p->bit & FL_HH)
+		return (va_arg(p->ap, unsigned int));
+	else if (p->bit & FL_L)
+		return (va_arg(p->ap, unsigned long));
+	else if (p->bit & FL_H)
+		return (va_arg(p->ap, unsigned int));
+	else
+		return (va_arg(p->ap, unsigned int));
+}
+
 /*
 **Function call va_arg for different decimal types
 **       Returned: result of the va_arg
 */
 
-
 long long	check_type_size(t_printf *p)
 {
-	char	*size;
+	long long	res;
+	char			*size;
 
 	size = p->size;
-	if (ft_strcmp(size, "ll") == 0)
-		return (va_arg(p->ap, long long));
-	else if (ft_strcmp(size, "hh") == 0)
-		return ((long long)va_arg(p->ap, int));
-	else if (ft_strcmp(size, "l") == 0)
-		return (va_arg(p->ap, long));
-	else if (ft_strcmp(size, "h") == 0)
-		return ((long long)va_arg(p->ap, int));
+	if (p->type != 'd' && p->type != 'i')
+		return (unsig_format(res, p));
+	if (p->bit & FL_LL)
+		res = va_arg(p->ap, long long);
+	else if (p->bit & FL_HH)
+		res = (long long)va_arg(p->ap, int);
+	else if (p->bit & FL_L)
+		res = va_arg(p->ap, long);
+	else if (p->bit & FL_H)
+		res = (long long)va_arg(p->ap, int);
 	else
-		return ((long long)va_arg(p->ap, int));
+		res = (long long)va_arg(p->ap, int);
+	return (res);
 }
 
 /*
@@ -120,9 +139,10 @@ int			d_flag(t_printf *p)
 	char	*res;
 	size_t	size;
 
-	ft_putstr("d_flag\n");
+	ft_putstr("d_flag1\n");
 	format = (p->type == 'x' ? 32 : 0);
 	base = (p->type == 'x' || p->type == 'X' ? 16 : 10);
+	base = (p->type == 'o' ? 8 : base);
 	res = ft_itoa_base(check_type_size(p), base, format);
 	size = ft_strlen(res);
 	if (!(p->bit & FL_MINUS))
