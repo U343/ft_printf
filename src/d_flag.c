@@ -120,6 +120,7 @@ int			d_flag(t_printf *p)
 	char	*res;
 	size_t	size;
 
+	ft_putstr("d_flag\n");
 	format = (p->type == 'x' ? 32 : 0);
 	base = (p->type == 'x' || p->type == 'X' ? 16 : 10);
 	res = ft_itoa_base(check_type_size(p), base, format);
