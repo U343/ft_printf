@@ -6,7 +6,7 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 14:55:16 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/13 11:41:08 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/17 12:45:14 by bedavis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static void	init_flags(char *f[10])
 	f[2] = "i";
 	f[3] = "d";
 	f[4] = "d";
-	f[3] = "x";
-	f[4] = "X";
+	//f[3] = "x";
+	//f[4] = "X";
 	f[5] = "c";
 	f[6] = "u";
 	f[7] = "o";
@@ -98,7 +98,7 @@ void parse_opt(t_printf *p)
 	if (*p->format == '.')
 	{
 		p->format++;
-		p->prec = ft_atoi(p->format) > 1 ? ft_atoi(p->format) : 1;
+		p->prec = ft_atoi(p->format) > 1 ? ft_atoi(p->format) : 0;
 		while ((*p->format >= '0') && (*p->format <= '9'))
 			++p->format;
 	}
@@ -113,8 +113,8 @@ void parse_opt(t_printf *p)
 void		parse(t_printf *p)
 {
 	size_t 	i;
-	char 	*flags[9];
-	int 	(*builtin_func[9]) (t_printf *p);
+	char 	*flags[10];
+	int 	(*builtin_func[10]) (t_printf *p);
 
 	i = 0;
 	init_flags(flags);
