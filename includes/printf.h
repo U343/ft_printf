@@ -6,7 +6,7 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:37:53 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/17 11:48:39 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/17 14:27:01 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@
 # define FL_LL			(1 << 7)
 # define FL_H			(1 << 8)
 # define FL_HH			(1 << 9)
+
+# define NUM_MINUS		(1 << 10)
+# define CHECK_P		(1 << 11)
+# define CHECK_U		(1 << 12)
 
 # define FT_MIN(a, b)		(a < b) ? a : b
 # define FT_MAX(a, b)		(a > b) ? a : b
