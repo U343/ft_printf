@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 15:37:22 by wanton            #+#    #+#             */
-/*   Updated: 2020/03/17 11:48:39 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/17 13:29:39 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		print_width(t_printf *p, size_t size)
 	}
 	if (ft_strcmp(c, "0") == 0)
 		take_symbol(p);
-	while ((size_t)p->w-- > tmp1)
+	while (p->w > 0 && (size_t)p->w-- > tmp1)
 		buffer(p, c, 1);
 }
 

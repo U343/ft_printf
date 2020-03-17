@@ -6,7 +6,7 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 14:55:16 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/17 12:45:14 by bedavis          ###   ########.fr       */
+/*   Updated: 2020/03/17 13:11:47 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,21 @@ void parse_size(t_printf *p)
 	{
 		if (p->format[1] == 'l' && ++p->format)
 		{
-			p->bit = 1 << 7;
+			p->bit |= 1 << 7;
 			p->format++;
 		}
 		else {
-			p->bit = 1 << 6;
+			p->bit |= 1 << 6;
 			p->format++;
 		}
 	}
 	else if (*p->format == 'h')
 	{
 		if (p->format[1] == 'h' && ++p->format) {
-			p->bit = 1 << 9;
+			p->bit |= 1 << 9;
 			p->format++;
 		} else {
-			p->bit = 1 << 8;
+			p->bit |= 1 << 8;
 			p->format++;
 		}
 	}
