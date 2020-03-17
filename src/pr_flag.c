@@ -29,7 +29,7 @@ int	pr_flag(t_printf *p)
 	i = 0;
 	if ((p->bit & FL_MINUS) > 0)
 	{
-		if ((i < p->prec) || (p->prec == -1))
+		if ((i < p->prec) || (p->prec <= 0))
 		{
 			buffer(p, (char *)&res, 1);
 			i++;
@@ -43,7 +43,7 @@ int	pr_flag(t_printf *p)
 			(i++ < (int)(p->w - (my_minp(1,p->prec)))))
 			buffer(p, " ", 1);
 		i = 0;
-		if ((i++ < p->prec) || (p->prec == -1))
+		if ((i++ < p->prec) || (p->prec <= 0))
 			buffer(p, (char *)&res, 1);
 	}
 	return (0);
