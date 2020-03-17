@@ -22,7 +22,8 @@ SRC = ft_strlen.c ft_isalpha.c ft_islower.c ft_isupper.c ft_isdigit.c ft_memcmp.
 	  ft_strequ.c ft_strnequ.c ft_strsub.c ft_strjoin.c ft_itoa.c ft_strtrim.c \
 	  ft_strsplit.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c \
 	  ft_lstaddend.c ft_lstmap.c ft_strtolower.c ft_strtoupper.c \
-	  ft_get_next_line.c ft_itoall.c ft_itoa_base.c ft_strpos.c
+	  ft_get_next_line.c ft_itoall.c ft_itoa_base.c ft_strpos.c \
+	  ft_unsigned_itoa_base.c
 OBJ = $(SRC:.c=.o)
 HEAD = -I ./includes
 

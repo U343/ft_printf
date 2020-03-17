@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 15:37:22 by wanton            #+#    #+#             */
-/*   Updated: 2020/03/13 11:50:30 by wanton           ###   ########.fr       */
+/*   Updated: 2020/03/17 11:48:39 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,20 +84,21 @@ void		print_round(t_printf *p, size_t size)
 		buffer(p, "0", 1);
 }
 
-long long	unsig_format(long long num, t_printf *p)
+char	*unsig_format(t_printf *p, int base, int format)
 {
-	long long	res;
+	unsigned long long	res;
 
 	if (p->bit & FL_LL)
-		return (va_arg(p->ap, unsigned long long));
+		res = va_arg(p->ap, unsigned long long);
 	else if (p->bit & FL_HH)
-		return (va_arg(p->ap, unsigned int));
+		res = va_arg(p->ap, unsigned int);
 	else if (p->bit & FL_L)
-		return (va_arg(p->ap, unsigned long));
+		res = va_arg(p->ap, unsigned long);
 	else if (p->bit & FL_H)
-		return (va_arg(p->ap, unsigned int));
+		res = va_arg(p->ap, unsigned int);
 	else
-		return (va_arg(p->ap, unsigned int));
+		res = va_arg(p->ap, unsigned int);
+	return (ft__unsig_itoa_base(res, base, format));
 }
 
 /*
@@ -105,14 +106,12 @@ long long	unsig_format(long long num, t_printf *p)
 **       Returned: result of the va_arg
 */
 
-long long	check_type_size(t_printf *p)
+char	*check_type_size(t_printf *p, int base, int format)
 {
 	long long	res;
-	char			*size;
 
-	size = p->size;
 	if (p->type != 'd' && p->type != 'i')
-		return (unsig_format(res, p));
+		return (unsig_format(p, base, format));
 	if (p->bit & FL_LL)
 		res = va_arg(p->ap, long long);
 	else if (p->bit & FL_HH)
@@ -123,7 +122,7 @@ long long	check_type_size(t_printf *p)
 		res = (long long)va_arg(p->ap, int);
 	else
 		res = (long long)va_arg(p->ap, int);
-	return (res);
+	return (ft_itoa_base(res, base, format));
 }
 
 /*
@@ -139,11 +138,11 @@ int			d_flag(t_printf *p)
 	char	*res;
 	size_t	size;
 
-	ft_putstr("d_flag1\n");
+	//ft_putstr("d_flag1\n");
 	format = (p->type == 'x' ? 32 : 0);
 	base = (p->type == 'x' || p->type == 'X' ? 16 : 10);
 	base = (p->type == 'o' ? 8 : base);
-	res = ft_itoa_base(check_type_size(p), base, format);
+	res = check_type_size(p, base, format);
 	size = ft_strlen(res);
 	if (!(p->bit & FL_MINUS))
 		print_width(p, size);
