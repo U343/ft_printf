@@ -19,8 +19,8 @@ static void	init_flags(char *f[10])
 	f[2] = "i";
 	f[3] = "d";
 	f[4] = "d";
-	//f[3] = "x";
-	//f[4] = "X";
+	f[3] = "x";
+	f[4] = "X";
 	f[5] = "c";
 	f[6] = "u";
 	f[7] = "o";
