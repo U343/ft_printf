@@ -68,9 +68,10 @@ void					parse(t_printf *p);
 **Flag functions
 */
 
-int					s_flag(t_printf *p);
-int					d_flag(t_printf *p);
-int					c_flag(t_printf *p);
-int					pr_flag(t_printf *p);
+int						s_flag(t_printf *p);
+int						d_flag(t_printf *p);
+int						c_flag(t_printf *p);
+int						pr_flag(t_printf *p);
+int						p_flag(t_printf *p);
 
 #endif

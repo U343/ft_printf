@@ -12,7 +12,7 @@
 
 #include "printf.h"
 
-static void	init_flags(char *f[10])
+static void	init_flags(char *f[11])
 {
 	f[0] = "s";
 	f[1] = "d";
@@ -25,10 +25,11 @@ static void	init_flags(char *f[10])
 	f[6] = "u";
 	f[7] = "o";
 	f[8] = "%";
-	f[9] = NULL;
+	f[9] = "p";
+	f[10] = NULL;
 }
 
-static void	init_flag_func(int (*b[10]) (t_printf *p))
+static void	init_flag_func(int (*b[11]) (t_printf *p))
 {
 	b[0] = &s_flag;
 	b[1] = &d_flag;
@@ -39,7 +40,8 @@ static void	init_flag_func(int (*b[10]) (t_printf *p))
 	b[6] = &d_flag;
 	b[7] = &d_flag;
 	b[8] = &pr_flag;
-	b[9] = NULL;
+	b[9] = &p_flag;
+	b[10] = NULL;
 }
 
 void init_struct(t_printf *p)
@@ -113,8 +115,8 @@ void parse_opt(t_printf *p)
 void		parse(t_printf *p)
 {
 	size_t 	i;
-	char 	*flags[10];
-	int 	(*builtin_func[10]) (t_printf *p);
+	char 	*flags[11];
+	int 	(*builtin_func[11]) (t_printf *p);
 
 	i = 0;
 	init_flags(flags);
