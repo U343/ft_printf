@@ -25,6 +25,8 @@ char 		*check_znak(long long value, t_printf *p, int base, int format)
 {
 	unsigned long long	tmp;
 
+	if (value == 0)
+        p->bit |= ZERO_VALUE;
 	if (value < 0)
 	{
 		if ((unsigned long long)value == -9223372036854775808u)
@@ -48,20 +50,26 @@ void		take_symbol(t_printf *p)
 		p->bit &= ~FL_PLUS;
 		p->bit |= CHECK_P;
 	}
-	if (p->bit & FL_SHARP && p->type == 'x')
+	if (p->bit & FL_SHARP && p->type == 'x' && !(p->bit & ZERO_VALUE))
 	{
 		buffer(p, "0", 1);
 		buffer(p, "x", 1);
 		p->bit &= ~FL_SHARP;
 		p->bit |= CHECK_U;
 	}
-	if (p->bit & FL_SHARP && p->type == 'X')
+	if (p->bit & FL_SHARP && p->type == 'X' && !(p->bit & ZERO_VALUE))
 	{
 		buffer(p, "0", 1);
 		buffer(p, "X", 1);
 		p->bit &= ~FL_SHARP;
 		p->bit |= CHECK_U;
 	}
+    if (p->bit & FL_SHARP && p->type == 'o' && !(p->bit & ZERO_VALUE))
+    {
+        buffer(p, "0", 1);
+        p->bit &= ~FL_SHARP;
+        p->bit |= CHECK_U;
+    }
 	if (p->bit & NUM_MINUS)
 	{
 		p->bit &= ~NUM_MINUS;
@@ -87,9 +95,10 @@ void		print_width(t_printf *p, size_t size)
 		p->bit &= ~CHECK_P;
 	}
 	else if (p->bit & FL_SHARP && (p->type == 'x' || p->type == 'X' ||
-			p->bit & CHECK_U))
+			p->bit & CHECK_U || p->type == 'o') && !(p->bit & ZERO_VALUE))
 	{
-		p->w -= 2;
+		p->w -= (p->type == 'x'|| p->type == 'X' ? 2 : 0);
+        p->w -= (p->type == 'o' ? 1 : 0);
 		p->bit &= ~CHECK_P;
 	}
 	if (p->prec != -1 && p->prec > 0)
@@ -131,6 +140,8 @@ char	*unsig_format(t_printf *p, int base, int format)
 		res = (unsigned short)va_arg(p->ap, unsigned int);
 	else
 		res = va_arg(p->ap, unsigned int);
+    if (res == 0)
+        p->bit |= ZERO_VALUE;
 	return (ft__unsig_itoa_base(res, base, format));
 }
 
