@@ -18,21 +18,22 @@
 #include "../libft/includes/libft.h"
 
 #define BUF_SIZE		64
-
+// Check ft_printf format flags
 # define FL_SPACE		(1 << 0)
 # define FL_SHARP		(1 << 1)
 # define FL_ZERO		(1 << 2)
 # define FL_MINUS		(1 << 3)
 # define FL_PLUS		(1 << 4)
-
+// Check number format:
 # define FL_L			(1 << 6)
 # define FL_LL			(1 << 7)
 # define FL_H			(1 << 8)
 # define FL_HH			(1 << 9)
 
-# define NUM_MINUS		(1 << 10)
-# define CHECK_P		(1 << 11)
-# define CHECK_U		(1 << 12)
+# define NUM_MINUS		(1 << 10) // check minus of the input value
+# define CHECK_P		(1 << 11) // Показывает напетаны ли символы +/-
+# define CHECK_U		(1 << 12) // Показывает напечатаны ли префиксы #
+# define ZERO_VALUE     (1 << 13) // Проверка на нулевое значение
 
 # define FT_MIN(a, b)		(a < b) ? a : b
 # define FT_MAX(a, b)		(a > b) ? a : b
