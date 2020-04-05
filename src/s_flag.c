@@ -28,10 +28,7 @@ int		s_flag(t_printf *p)
 
 	i = 0;
 	if (!(res = va_arg(p->ap, char*)))
-	{
-		buffer(p, "(null)", 6);
-		return (0);
-	}
+		res = "(null)";
 	if ((p->bit & FL_MINUS) > 0)
 	{
 		while (*res && ((i < p->prec) || (p->prec == -1)))
