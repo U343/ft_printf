@@ -100,7 +100,7 @@ void parse_opt(t_printf *p)
 	if (*p->format == '.')
 	{
 		p->format++;
-		p->prec = ft_atoi(p->format) > 1 ? ft_atoi(p->format) : 0;
+		p->prec = ft_atoi(p->format) >= 1 ? ft_atoi(p->format) : 0;
 		while ((*p->format >= '0') && (*p->format <= '9'))
 			++p->format;
 	}
