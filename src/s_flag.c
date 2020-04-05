@@ -24,11 +24,13 @@ int		my_min(int len, int prec)
 int		s_flag(t_printf *p)
 {
 	char *res;
+	char *c;
 	int i;
 
 	i = 0;
 	if (!(res = va_arg(p->ap, char*)))
 		res = "(null)";
+	c = ((p->bit & FL_ZERO) > 0) ? "0" : " ";
 	if ((p->bit & FL_MINUS) > 0)
 	{
 		while (*res && ((i < p->prec) || (p->prec == -1)))
@@ -43,7 +45,7 @@ int		s_flag(t_printf *p)
 	{
 		while (p->is_w && 
 			(i++ < (int)(p->w - (my_min((int)ft_strlen(res),p->prec)))))
-			buffer(p, " ", 1);
+			buffer(p, c, 1);
 		i = 0;
 		while (*res && ((i++ < p->prec) || (p->prec == -1)))
 			buffer(p, res++, 1);
