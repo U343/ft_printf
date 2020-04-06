@@ -12,10 +12,11 @@
 
 #include "printf.h"
 
-void		add_to_buff(char *s, t_printf *p)
+void		res_to_buff(char *s, t_printf *p)
 {
 	char	*tmp;
-
+    if (p->prec == 0 && p->bit & ZERO_VALUE)
+        return ;
 	tmp = s;
 	while (*tmp)
 		buffer(p, tmp++, 1);
@@ -94,8 +95,8 @@ void		print_width(t_printf *p, size_t size)
 		p->w--;
 		p->bit &= ~CHECK_P;
 	}
-	else if (p->bit & FL_SHARP && (p->type == 'x' || p->type == 'X' ||
-			p->bit & CHECK_U || p->type == 'o') && !(p->bit & ZERO_VALUE))
+	else if ((p->bit & FL_SHARP || p->bit & CHECK_U) && (p->type == 'x' ||
+	p->type == 'X' || p->type == 'o') && !(p->bit & ZERO_VALUE))
 	{
 		p->w -= (p->type == 'x'|| p->type == 'X' ? 2 : 0);
         p->w -= (p->type == 'o' ? 1 : 0);
@@ -170,6 +171,23 @@ char	*check_type_size(t_printf *p, int base, int format)
 	return (check_znak(res, p, base, format));
 }
 
+int         check_first_space(t_printf *p, int size)
+{
+    if (p->bit & ZERO_VALUE && p->prec == 0)
+    {
+        size = 0;
+        p->w = (p->w == 1 ? 0 : p->w); // костыль, т.к. начальное значение 1
+        // и на этом построены отсальные вычисления
+    }
+    if (p->bit & FL_SPACE && !(p->bit & FL_PLUS) &&
+        (p->type == 'd' || p->type == 'i'))
+    {
+        buffer(p, " ", 1);
+        return (size + 1);
+    }
+    return size;
+}
+
 /*
 **Function for print d, ld, lld, hd and hhd
 ** format - value fo xX flags: 0 for X and 32 for x
@@ -184,16 +202,23 @@ int			d_flag(t_printf *p)
 	size_t	size;
 
 	//ft_putstr("d_flag1\n");
+	printf("prec = %d\n", p->prec);
 	format = (p->type == 'x' ? 32 : 0);
 	base = (p->type == 'x' || p->type == 'X' ? 16 : 10);
 	base = (p->type == 'o' ? 8 : base);
 	res = check_type_size(p, base, format);
 	size = ft_strlen(res);
-	if (!(p->bit & FL_MINUS))
-		print_width(p, size);
+	size = check_first_space(p, size);
+    //ft_putnbr(size);
+	if (!(p->bit & FL_MINUS)) {
+        print_width(p, size);
+        //ft_putstr("ok\n");
+    }
 	print_round(p, size);
-	add_to_buff(res, p);
-	if (p->bit & FL_MINUS)
-		print_width(p, size);
+	res_to_buff(res, p);
+	if (p->bit & FL_MINUS) {
+        print_width(p, size);
+        //ft_putstr("ok");
+    }
 	return (0);
 }
