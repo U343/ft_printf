@@ -65,7 +65,8 @@ void		take_symbol(t_printf *p)
 		p->bit &= ~FL_SHARP;
 		p->bit |= CHECK_U;
 	}
-    if (p->bit & FL_SHARP && p->type == 'o' && !(p->bit & ZERO_VALUE))
+    if (p->bit & FL_SHARP && p->type == 'o' &&
+    (!(p->bit & ZERO_VALUE) || p->prec == 0))
     {
         buffer(p, "0", 1);
         p->bit &= ~FL_SHARP;
@@ -179,11 +180,11 @@ int         check_first_space(t_printf *p, int size)
         p->w = (p->w == 1 ? 0 : p->w); // костыль, т.к. начальное значение 1
         // и на этом построены отсальные вычисления
     }
-    if (p->bit & FL_SPACE && !(p->bit & FL_PLUS) &&
+    if (p->bit & FL_SPACE && !(p->bit & FL_PLUS) && !(p->bit & NUM_MINUS) &&
         (p->type == 'd' || p->type == 'i'))
     {
         buffer(p, " ", 1);
-        return (size + 1);
+        p->w--;
     }
     return size;
 }
