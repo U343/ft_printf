@@ -202,7 +202,6 @@ int			d_flag(t_printf *p)
 	size_t	size;
 
 	//ft_putstr("d_flag1\n");
-	printf("prec = %d\n", p->prec);
 	format = (p->type == 'x' ? 32 : 0);
 	base = (p->type == 'x' || p->type == 'X' ? 16 : 10);
 	base = (p->type == 'o' ? 8 : base);
