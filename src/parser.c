@@ -12,7 +12,7 @@
 
 #include "printf.h"
 
-static void	init_flags(char *f[11])
+static void	init_flags(char *f[12])
 {
 	f[0] = "s";
 	f[1] = "d";
@@ -26,10 +26,11 @@ static void	init_flags(char *f[11])
 	f[7] = "o";
 	f[8] = "%";
 	f[9] = "p";
-	f[10] = NULL;
+	f[10] = "f";
+	f[11] = NULL;
 }
 
-static void	init_flag_func(int (*b[11]) (t_printf *p))
+static void	init_flag_func(int (*b[12]) (t_printf *p))
 {
 	b[0] = &s_flag;
 	b[1] = &d_flag;
@@ -41,7 +42,8 @@ static void	init_flag_func(int (*b[11]) (t_printf *p))
 	b[7] = &d_flag;
 	b[8] = &pr_flag;
 	b[9] = &p_flag;
-	b[10] = NULL;
+	b[10] = &f_flag;
+	b[11] = NULL;
 }
 
 void init_struct(t_printf *p)
@@ -106,7 +108,7 @@ void parse_opt(t_printf *p)
 	}
 	//size and type parsing
 	parse_size(p);
-	if (ft_strchr("cspdiouxX%", *p->format) != NULL)
+	if (ft_strchr("cspdiouxXf%", *p->format) != NULL)
 		p->type = *p->format;
 	else
 		p->type = 0;
@@ -115,8 +117,8 @@ void parse_opt(t_printf *p)
 void		parse(t_printf *p)
 {
 	size_t 	i;
-	char 	*flags[11];
-	int 	(*builtin_func[11]) (t_printf *p);
+	char 	*flags[12];
+	int 	(*builtin_func[12]) (t_printf *p);
 
 	i = 0;
 	init_flags(flags);

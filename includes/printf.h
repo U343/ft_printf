@@ -48,6 +48,7 @@ typedef struct			s_printf
 	int					fd;
 	int					buffer_index;
 	int 				prec;
+	int                 lenofprint;
 	char				buff[BUF_SIZE];
 	va_list				ap;
 	char				*format;
@@ -74,5 +75,6 @@ int						d_flag(t_printf *p);
 int						c_flag(t_printf *p);
 int						pr_flag(t_printf *p);
 int						p_flag(t_printf *p);
+int						f_flag(t_printf *p);
 
 #endif

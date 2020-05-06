@@ -19,7 +19,8 @@ SOURCES =	ft_printf.c \
 			d_flag.c \
 			c_flag.c \
 			pr_flag.c \
-			p_flag.c
+			p_flag.c \
+			f_flag.c
 
 #Compiler
 CC = gcc
