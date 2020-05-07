@@ -34,6 +34,7 @@
 # define CHECK_P		(1 << 11) // Показывает напетаны ли символы +/-
 # define CHECK_U		(1 << 12) // Показывает напечатаны ли префиксы #
 # define ZERO_VALUE     (1 << 13) // Проверка на нулевое значение
+# define FL_BIGL        (1 << 15) // shows 'L'
 
 # define FT_MIN(a, b)		(a < b) ? a : b
 # define FT_MAX(a, b)		(a > b) ? a : b

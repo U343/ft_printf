@@ -30,8 +30,9 @@ static void		ldtoa_fill(double n, t_printf *p, long value)
 		s[i ] = value % 10 + '0';
 		value /= 10;
 	}
-	(p->prec > 0) ? s[len] = '.' : 0;
-	value = (long)(FT_ABS(n));
+	value = (s[len] == '1' || (p->prec == 0 && value))? 1 : 0;
+	p->prec > 0 ? s[len] = '.' : 0;
+	value += (long)(FT_ABS(n));
 	while (++i < len)
 	{
 		s[len - i - 1] = value % 10 + '0';
@@ -42,17 +43,19 @@ static void		ldtoa_fill(double n, t_printf *p, long value)
 	(n < 0) ? s[0] = '-' : 0;
 	(p->bit & FL_PLUS && n >= 0) ? s[0] = '+' : 0;
 	buffer(p, s, p->lenofprint);
+	(p->bit & FL_SHARP) && (p->prec <= 0) ? buffer(p, ".", 1) : 0;
 }
 
 int	f_flag(t_printf *p)
 {
-	double		n;
+	long double		n;
 	long		tmp;
 	int			len;
 	double		decimal;
 	long		value;
 
-	n = (double)va_arg(p->ap, double);
+	n = (p->bit & FL_BIGL) ? (long double)va_arg(p->ap, long double) :
+	        (double)va_arg(p->ap, double);
 	//(p->f & F_ZERO) ? p->precision = p->min_length : 0;
 
 	p->prec = p->prec == -1 ? 6 : p->prec;

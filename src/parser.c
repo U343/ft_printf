@@ -81,6 +81,11 @@ void parse_size(t_printf *p)
 			p->format++;
 		}
 	}
+	else if (*p->format == 'L')
+    {
+	    p->bit |= 1 << 15;
+	    p->format++;
+    }
 }
 
 void parse_opt(t_printf *p)
