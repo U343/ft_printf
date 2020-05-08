@@ -114,7 +114,7 @@ void parse_opt(t_printf *p)
 	//size and type parsing
 	parse_size(p);
 	if (ft_strchr("cspdiouxXf%", *p->format) != NULL)
-		p->type = *p->format;
+        p->type = *p->format;
 	else
 		p->type = 0;
 }

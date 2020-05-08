@@ -43,7 +43,7 @@ static void		ldtoa_fill(double n, t_printf *p, long value)
 		value /= 10;
 	}
 	(p->bit & FL_SPACE) && (p->lenofprint >= p->w) && (n >= 0) ? buffer(p, " ", 1) : 0;
-	(n < 0) ? s[0] = '-' : 0;
+	(n < 0) || (1 / n < 0)? s[0] = '-' : 0; //try to understand if it is -0 or +0
 	(p->bit & FL_PLUS && n >= 0) ? s[0] = '+' : 0;
     i = p->w - p->lenofprint;
 	if (p->w > p->lenofprint) {
