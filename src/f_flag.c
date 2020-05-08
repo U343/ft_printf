@@ -12,6 +12,10 @@
 
 #include "printf.h"
 
+int     ft_one(int i) {
+    return 1;
+}
+
 double	ft_power(double n, int power)
 {
 	return (power ? n * ft_power(n, power - 1) : 1);
@@ -38,12 +42,32 @@ static void		ldtoa_fill(double n, t_printf *p, long value)
 		s[len - i - 1] = value % 10 + '0';
 		value /= 10;
 	}
-	//(p->f & F_APP_PRECI && p->f & F_ZERO) ? s[0] = ' ' : 0;
-	(p->bit & FL_SPACE) ? buffer(p, " ", 1) : 0;
+	(p->bit & FL_SPACE) && (p->lenofprint >= p->w) && (n >= 0) ? buffer(p, " ", 1) : 0;
 	(n < 0) ? s[0] = '-' : 0;
 	(p->bit & FL_PLUS && n >= 0) ? s[0] = '+' : 0;
-	buffer(p, s, p->lenofprint);
-	(p->bit & FL_SHARP) && (p->prec <= 0) ? buffer(p, ".", 1) : 0;
+    i = p->w - p->lenofprint;
+	if (p->w > p->lenofprint) {
+        if (p->bit & FL_MINUS) {
+            //work when FL_SPACE and FL_MINUS both
+            (p->bit & FL_SPACE) && (p->lenofprint <= p->w) && (n >= 0) ? buffer(p, " ", ft_one(i--)) : 0;
+            buffer(p, s, p->lenofprint);
+            (p->bit & FL_SHARP) && (p->prec <= 0) ? buffer(p, ".", ft_one(i--))
+                                                  : 0;
+            while (i--) {
+                buffer(p, " ", 1);
+            }
+        } else {
+            (p->bit & FL_SHARP) && (p->prec <= 0) ? i-- : 0;
+            while (i--) {
+                buffer(p, " ", 1);
+            }
+            buffer(p, s, p->lenofprint);
+            (p->bit & FL_SHARP) && (p->prec <= 0) ? buffer(p, ".", 1) : 0;
+        }
+    } else {
+        buffer(p, s, p->lenofprint);
+        (p->bit & FL_SHARP) && (p->prec <= 0) ? buffer(p, ".", 1) : 0;
+	}
 }
 
 int	f_flag(t_printf *p)
