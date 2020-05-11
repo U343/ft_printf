@@ -65,6 +65,7 @@ typedef struct			s_printf
 int						ft_printf(const char *format, ...);
 void					buffer(t_printf *p, void *new, size_t size);
 void					parse(t_printf *p);
+void					res_to_buff(char *s, t_printf *p);
 
 
 /*
@@ -77,5 +78,16 @@ int						c_flag(t_printf *p);
 int						pr_flag(t_printf *p);
 int						p_flag(t_printf *p);
 int						f_flag(t_printf *p);
+
+/*
+**Functions for d_flag
+*/
+
+int						check_first_space(t_printf *p, int size);
+char					*width_symbol(t_printf *p);
+char 					*check_znak(long long value,
+		t_printf *p, int base, int format);
+void					calculating_width(t_printf *p);
+void					take_symbol(t_printf *p);
 
 #endif

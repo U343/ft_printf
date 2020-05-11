@@ -12,97 +12,19 @@
 
 #include "printf.h"
 
-void		res_to_buff(char *s, t_printf *p)
-{
-	char	*tmp;
-    if (p->prec == 0 && p->bit & ZERO_VALUE)
-        return ;
-	tmp = s;
-	while (*tmp)
-		buffer(p, tmp++, 1);
-}
-
-char 		*check_znak(long long value, t_printf *p, int base, int format)
-{
-	unsigned long long	tmp;
-
-	if (value == 0)
-        p->bit |= ZERO_VALUE;
-	if (value < 0)
-	{
-		if ((unsigned long long)value == -9223372036854775808u)
-			return ("-9223372036854775808");
-		if (base == 10)
-		{
-			p->bit |= NUM_MINUS;
-			p->bit &= ~FL_PLUS;
-		}
-		value *= -1;
-	}
-	tmp = (unsigned long long)value;
-	return (ft__unsig_itoa_base(tmp, base, format));
-}
-
-void		take_symbol(t_printf *p)
-{
-	if (p->bit & FL_PLUS && (p->type == 'd' || p->type == 'i'))
-	{
-		buffer(p, "+", 1);
-		p->bit &= ~FL_PLUS;
-		p->bit |= CHECK_P;
-	}
-	if (p->bit & FL_SHARP && p->type == 'x' && !(p->bit & ZERO_VALUE))
-	{
-		buffer(p, "0", 1);
-		buffer(p, "x", 1);
-		p->bit &= ~FL_SHARP;
-		p->bit |= CHECK_U;
-	}
-	if (p->bit & FL_SHARP && p->type == 'X' && !(p->bit & ZERO_VALUE))
-	{
-		buffer(p, "0", 1);
-		buffer(p, "X", 1);
-		p->bit &= ~FL_SHARP;
-		p->bit |= CHECK_U;
-	}
-    if (p->bit & FL_SHARP && p->type == 'o' &&
-    (!(p->bit & ZERO_VALUE) || p->prec == 0))
-    {
-        buffer(p, "0", 1);
-        p->bit &= ~FL_SHARP;
-        p->bit |= CHECK_U;
-    }
-	if (p->bit & NUM_MINUS)
-	{
-		p->bit &= ~NUM_MINUS;
-		buffer(p, "-", 1);
-		p->bit |= CHECK_P;
-	}
-}
+/*
+** Функция печатает "ширину" если это необходимо
+** количество печатаемых символов рассчитывается на основе size
+*/
 
 void		print_width(t_printf *p, size_t size)
 {
 	char	*c;
 	size_t	tmp1;
 
-	if (((p->bit & FL_ZERO) > 0) && !((p->bit & FL_MINUS) > 0))
-		c = "0";
-	else
-		c = " ";
+	c = width_symbol(p);
 	tmp1 = size;
-	if ((p->bit & FL_PLUS || p->bit & NUM_MINUS || p->bit & CHECK_P)
-	&& p->type != 'x' && p->type != 'X')
-	{
-		p->w--;
-		p->bit &= ~CHECK_P;
-	}
-	else if ((p->bit & FL_SHARP || p->bit & CHECK_U) && (p->type == 'x' ||
-	p->type == 'X' || p->type == 'o') && !(p->bit & ZERO_VALUE))
-	{
-		p->w -= (p->type == 'x'|| p->type == 'X' ? 2 : 0);
-        p->w -= (p->type == 'o' ? 1 : 0);
-		p->bit &= ~CHECK_P;
-	}
+	calculating_width(p);
 	if (p->prec != -1 && p->prec > 0)
 	{
 		tmp1 = size > (size_t)p->prec ? size : p->prec;
@@ -116,6 +38,11 @@ void		print_width(t_printf *p, size_t size)
 		buffer(p, c, 1);
 }
 
+/*
+** print_round() - добавляет '0' если округление больше размера числа
+** take_symbol() - ставит префиксы и различные символы, запрашиваемые флагами
+*/
+
 void		print_round(t_printf *p, size_t size)
 {
 	size_t	round;
@@ -128,7 +55,14 @@ void		print_round(t_printf *p, size_t size)
 		buffer(p, "0", 1);
 }
 
-char	*unsig_format(t_printf *p, int base, int format)
+/*
+**Function call va_arg for o/x/X types
+**ZERO_VALUE - флаг, нужен для того чтобы не ставить префикс
+** для беззнаковых чисел, запрашиваемый флагом '#'
+**       Returned: result of function ft_unsig_itoa_base()
+*/
+
+char		*unsig_format(t_printf *p, int base, int format)
 {
 	unsigned long long	res;
 
@@ -144,15 +78,16 @@ char	*unsig_format(t_printf *p, int base, int format)
 		res = va_arg(p->ap, unsigned int);
     if (res == 0)
         p->bit |= ZERO_VALUE;
-	return (ft__unsig_itoa_base(res, base, format));
+	return (ft_unsig_itoa_base(res, base, format));
 }
 
 /*
 **Function call va_arg for different decimal types
-**       Returned: result of the va_arg
+** and call unsig_format() for o/x/X flags
+**       Returned: result of function check_znak()
 */
 
-char	*check_type_size(t_printf *p, int base, int format)
+char		*check_type_size(t_printf *p, int base, int format)
 {
 	long long	res;
 
@@ -172,23 +107,6 @@ char	*check_type_size(t_printf *p, int base, int format)
 	return (check_znak(res, p, base, format));
 }
 
-int         check_first_space(t_printf *p, int size)
-{
-    if (p->bit & ZERO_VALUE && p->prec == 0)
-    {
-        size = 0;
-        p->w = (p->w == 1 ? 0 : p->w); // костыль, т.к. начальное значение 1
-        // и на этом построены отсальные вычисления
-    }
-    if (p->bit & FL_SPACE && !(p->bit & FL_PLUS) && !(p->bit & NUM_MINUS) &&
-        (p->type == 'd' || p->type == 'i'))
-    {
-        buffer(p, " ", 1);
-        p->w--;
-    }
-    return size;
-}
-
 /*
 **Function for print d, ld, lld, hd and hhd
 ** format - value fo xX flags: 0 for X and 32 for x
@@ -202,23 +120,17 @@ int			d_flag(t_printf *p)
 	char	*res;
 	size_t	size;
 
-	//ft_putstr("d_flag1\n");
 	format = (p->type == 'x' ? 32 : 0);
 	base = (p->type == 'x' || p->type == 'X' ? 16 : 10);
 	base = (p->type == 'o' ? 8 : base);
 	res = check_type_size(p, base, format);
 	size = ft_strlen(res);
 	size = check_first_space(p, size);
-    //ft_putnbr(size);
-	if (!(p->bit & FL_MINUS)) {
+	if (!(p->bit & FL_MINUS))
         print_width(p, size);
-        //ft_putstr("ok\n");
-    }
 	print_round(p, size);
 	res_to_buff(res, p);
-	if (p->bit & FL_MINUS) {
+	if (p->bit & FL_MINUS)
         print_width(p, size);
-        //ft_putstr("ok");
-    }
 	return (0);
 }

@@ -62,7 +62,7 @@ char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoall(long long n);
 char				*ft_itoa_base(long long value, int base, int format);
-char				*ft__unsig_itoa_base(unsigned long long value,
+char				*ft_unsig_itoa_base(unsigned long long value,
 		int base, int format);
 
 void				*ft_memset(void *b, int c, size_t n);

@@ -20,7 +20,7 @@ static __uint128_t			ft_pow(long long nb, int pow)
 		return (nb * ft_pow(nb, pow - 1));
 }
 
-char						*ft__unsig_itoa_base(unsigned long long value,
+char						*ft_unsig_itoa_base(unsigned long long value,
 		int base, int format)
 {
 	int			i;
