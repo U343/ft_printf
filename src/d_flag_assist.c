@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   f_flag.c                                           :+:      :+:    :+:   */
+/*   d_flag_assist.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedavis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: null <null@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/13 16:20:21 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/17 13:10:21 by wanton           ###   ########.fr       */
+/*   Created: 2020/05/12 15:59:22 by null              #+#    #+#             */
+/*   Updated: 2020/05/12 15:59:22 by null             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "printf.h"
 
@@ -33,7 +34,7 @@ char	*width_symbol(t_printf *p)
 void	calculating_width(t_printf *p)
 {
 	if ((p->bit & FL_PLUS || p->bit & NUM_MINUS || p->bit & CHECK_P)
-	    && p->type != 'x' && p->type != 'X')
+	&& p->type != 'x' && p->type != 'X')
 	{
 		p->w--;
 		p->bit &= ~CHECK_P;
@@ -41,7 +42,7 @@ void	calculating_width(t_printf *p)
 	else if ((p->bit & FL_SHARP || p->bit & CHECK_U) && (p->type == 'x' ||
 	p->type == 'X' || p->type == 'o') && !(p->bit & ZERO_VALUE))
 	{
-		p->w -= (p->type == 'x'|| p->type == 'X' ? 2 : 0);
+		p->w -= (p->type == 'x' || p->type == 'X' ? 2 : 0);
 		p->w -= (p->type == 'o' ? 1 : 0);
 		p->bit &= ~CHECK_P;
 	}
@@ -118,5 +119,5 @@ int		check_first_space(t_printf *p, int size)
 		buffer(p, " ", 1);
 		p->w--;
 	}
-	return size;
+	return (size);
 }

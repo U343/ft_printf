@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   d_flag.c                                           :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/09 15:37:22 by wanton            #+#    #+#             */
-/*   Updated: 2020/03/17 15:05:34 by wanton           ###   ########.fr       */
+/*   Created: 2020/03/04 12:40:03 by bedavis           #+#    #+#             */
+/*   Updated: 2020/03/11 14:49:40 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ char		*unsig_format(t_printf *p, int base, int format)
 		res = (unsigned short)va_arg(p->ap, unsigned int);
 	else
 		res = va_arg(p->ap, unsigned int);
-    if (res == 0)
-        p->bit |= ZERO_VALUE;
+	if (res == 0)
+		p->bit |= ZERO_VALUE;
 	return (ft_unsig_itoa_base(res, base, format));
 }
 
@@ -127,10 +127,10 @@ int			d_flag(t_printf *p)
 	size = ft_strlen(res);
 	size = check_first_space(p, size);
 	if (!(p->bit & FL_MINUS))
-        print_width(p, size);
+		print_width(p, size);
 	print_round(p, size);
 	res_to_buff(res, p);
 	if (p->bit & FL_MINUS)
-        print_width(p, size);
+		print_width(p, size);
 	return (0);
 }
