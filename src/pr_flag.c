@@ -6,7 +6,7 @@
 /*   By: bedavis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 16:20:21 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/13 16:20:24 by bedavis          ###   ########.fr       */
+/*   Updated: 2020/05/20 18:13:31 by null             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ int		my_minp(int len, int prec)
 
 int	pr_flag(t_printf *p)
 {
-	char res;
-	int i;
-
+	char	res;
+	char 	*c;
+	int		i;
+	
+	c = width_symbol(p);
 	res = '%';
 	i = 0;
 	if ((p->bit & FL_MINUS) > 0)
@@ -35,13 +37,13 @@ int	pr_flag(t_printf *p)
 			i++;
 		}
 		while (i++ < p->w && p->is_w)
-			buffer(p, " ", 1);
+			buffer(p, c, 1);
 	}
 	else
 	{
 		while (p->is_w && 
 			(i++ < (int)(p->w - (my_minp(1,p->prec)))))
-			buffer(p, " ", 1);
+			buffer(p, c, 1);
 		i = 0;
 		if ((i++ < p->prec) || (p->prec <= 0))
 			buffer(p, (char *)&res, 1);

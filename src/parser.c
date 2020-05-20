@@ -6,7 +6,7 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 14:55:16 by bedavis           #+#    #+#             */
-/*   Updated: 2020/03/17 13:11:47 by wanton           ###   ########.fr       */
+/*   Updated: 2020/05/20 18:04:40 by null             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void parse_size(t_printf *p)
 
 void parse_opt(t_printf *p)
 {
-	p->size = ft_strnew(3);
 	while (ft_strchr(" #0-+", *p->format) != NULL)
 	{
 		p->bit |= 1 << ft_strpos(" #0-+", *p->format);
@@ -116,7 +115,10 @@ void parse_opt(t_printf *p)
 	if (ft_strchr("cspdiouxXf%", *p->format) != NULL)
         p->type = *p->format;
 	else
+	{
 		p->type = 0;
+		p->format -= (*(p->format) ? 1 : 2);
+	}
 }
 
 void		parse(t_printf *p)
