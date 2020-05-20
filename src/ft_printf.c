@@ -31,7 +31,7 @@ int					ft_printf(const char *format, ...)
 		}
 		else
 			buffer(&p, p.format, 1);
-		++p.format;
+        (*p.format) ? ++p.format : 0;
 	}
 	write(p.fd, p.buff, p.buffer_index);
 	va_end(p.ap);
