@@ -73,10 +73,10 @@ static void		ldtoa_fill(double n, t_printf *p, long value)
 int	f_flag(t_printf *p)
 {
 	long double		n;
-	long		tmp;
-	int			len;
-	double		decimal;
-	long		value;
+	long		    tmp;
+	int			    len;
+	long double		decimal;
+	long		    value;
 
 	n = (p->bit & FL_BIGL) ? (long double)va_arg(p->ap, long double) :
 	        (double)va_arg(p->ap, double);
