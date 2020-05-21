@@ -80,6 +80,14 @@ int						p_flag(t_printf *p);
 int						f_flag(t_printf *p);
 
 /*
+**Init functions
+*/
+
+void					init_flags(char *f[12]);
+void					init_flag_func(int (*b[12]) (t_printf *p));
+void					init_struct(t_printf *p);
+
+/*
 **Functions for d_flag
 */
 
