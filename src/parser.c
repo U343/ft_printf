@@ -6,7 +6,7 @@
 /*   By: bedavis <bedavis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 14:55:16 by bedavis           #+#    #+#             */
-/*   Updated: 2020/05/21 15:31:44 by null             ###   ########.fr       */
+/*   Updated: 2020/05/21 16:13:53 by null             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ void	parse_prec(t_printf *p)
 		{
 			prec = va_arg(p->ap, int);
 			if (prec < 0)
-				prec *= -1;
+			{
+				p->format++;
+				return;
+			}
 			p->prec = prec >= 1 ? prec : 0;
 			str_prec = ft_itoa(prec);
 			while ((*str_prec >= '0') && (*str_prec <= '9'))
