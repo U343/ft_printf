@@ -132,6 +132,6 @@ int			d_flag(t_printf *p)
 	res_to_buff(res, p);
 	if (p->bit & FL_MINUS)
 		print_width(p, size);
-	free(res);
+	(res[0] != '-') ? free(res) : 0;
 	return (0);
 }
