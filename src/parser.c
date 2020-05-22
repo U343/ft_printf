@@ -54,9 +54,9 @@ void	parse_width(t_printf *p)
 		if (*p->format == '*')
 		{
 			++p->format;
+			spec = va_arg(p->ap, int);
 			if (!ft_isdigit(*p->format))
 			{
-				spec = va_arg(p->ap, int);
 				if (spec < 0)
 				{
 					p->bit |= 1 << 3; // задаю флаг -
@@ -86,23 +86,22 @@ void	parse_prec(t_printf *p)
 		if (*p->format == '*')
 		{
 			prec = va_arg(p->ap, int);
-			if (prec < 0)
-			{
-				p->format++;
-				return;
-			}
-			p->prec = prec >= 1 ? prec : 0;
-			str_prec = ft_itoa(prec);
-			while ((*str_prec >= '0') && (*str_prec <= '9'))
-				++str_prec;
 			++p->format;
+			if (!ft_isdigit(*p->format))
+			{
+				if (prec < 0)
+					return;
+				p->prec = prec >= 1 ? prec : 0;
+				str_prec = ft_itoa(prec);
+				while ((*str_prec >= '0') && (*str_prec <= '9'))
+					++str_prec;
+				return ;
+			}
+			
 		}
-		else
-		{
-			p->prec = ft_atoi(p->format) >= 1 ? ft_atoi(p->format) : 0;
-			while ((*p->format >= '0') && (*p->format <= '9'))
-				++p->format;
-		}
+		p->prec = ft_atoi(p->format) >= 1 ? ft_atoi(p->format) : 0;
+		while ((*p->format >= '0') && (*p->format <= '9'))
+			++p->format;
 	}
 }
 
