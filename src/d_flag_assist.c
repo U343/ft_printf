@@ -46,6 +46,10 @@ void	calculating_width(t_printf *p)
 		p->w -= (p->type == 'o' ? 1 : 0);
 		p->bit &= ~CHECK_P;
 	}
+	if (p->w < 1)
+	{
+		p->w = 1;
+	}
 }
 
 /*
