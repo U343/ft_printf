@@ -97,5 +97,6 @@ char 					*check_znak(long long value,
 		t_printf *p, int base, int format);
 void					calculating_width(t_printf *p);
 void					take_symbol(t_printf *p);
+int                     p_one(int a);
 
 #endif
