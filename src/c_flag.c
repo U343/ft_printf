@@ -12,7 +12,7 @@
 
 #include "printf.h"
 
-int		my_minc(int len, int prec)
+int			my_minc(int len, int prec)
 {
 	if (len <= prec || prec == -1)
 		return (len);
@@ -20,18 +20,18 @@ int		my_minc(int len, int prec)
 		return (prec);
 }
 
-int	c_flag(t_printf *p)
+int			c_flag(t_printf *p)
 {
-	char res;
-	char *c;
-	int i;
+	char	res;
+	char	*c;
+	int		i;
 
 	res = va_arg(p->ap, int);
 	c = ((p->bit & FL_ZERO) > 0) ? "0" : " ";
 	i = 0;
 	if ((p->bit & FL_MINUS) > 0)
 	{
-		if (/*res && */((i < p->prec) || (p->prec <= 0)))
+		if (((i < p->prec) || (p->prec <= 0)))
 		{
 			buffer(p, (char *)&res, 1);
 			i++;
@@ -41,12 +41,10 @@ int	c_flag(t_printf *p)
 	}
 	else
 	{
-		while (p->is_w && 
-			(i++ < (int)(p->w - (my_minc(1,p->prec)))))
+		while (p->is_w && (i++ < (int)(p->w - (my_minc(1, p->prec)))))
 			buffer(p, c, 1);
 		i = 0;
-		if (/*res &&*/((i++ < p->prec) || (p->prec <= 0)))
-			buffer(p, (char *)&res, 1);
+		((i++ < p->prec) || (p->prec <= 0)) ? buffer(p, (char *)&res, 1) : 0;
 	}
 	return (0);
 }

@@ -12,7 +12,7 @@
 
 #include "printf.h"
 
-int		my_min(int len, int prec)
+int			my_min(int len, int prec)
 {
 	if (len <= prec || prec == -1)
 		return (len);
@@ -20,12 +20,11 @@ int		my_min(int len, int prec)
 		return (prec);
 }
 
-
-int		s_flag(t_printf *p)
+int			s_flag(t_printf *p)
 {
-	char *res;
-	char *c;
-	int i;
+	char	*res;
+	char	*c;
+	int		i;
 
 	i = 0;
 	if (!(res = va_arg(p->ap, char*)))
@@ -33,18 +32,15 @@ int		s_flag(t_printf *p)
 	c = ((p->bit & FL_ZERO) > 0) ? "0" : " ";
 	if ((p->bit & FL_MINUS) > 0)
 	{
-		while (*res && ((i < p->prec) || (p->prec == -1)))
-		{
+		while (*res && ((i++ < p->prec) || (p->prec == -1)))
 			buffer(p, res++, 1);
-			i++;
-		}
 		while (i++ < p->w && p->is_w)
 			buffer(p, " ", 1);
 	}
 	else
 	{
-		while (p->is_w && 
-			(i++ < (int)(p->w - (my_min((int)ft_strlen(res),p->prec)))))
+		while (p->is_w &&
+			(i++ < (int)(p->w - my_min((int)ft_strlen(res), p->prec))))
 			buffer(p, c, 1);
 		i = 0;
 		while (*res && ((i++ < p->prec) || (p->prec == -1)))
