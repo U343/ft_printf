@@ -12,7 +12,12 @@
 
 #include "printf.h"
 
-int				my_minp(int len, int prec)
+int		ft_one(int i)
+{
+	return (1);
+}
+
+int		my_minp(int len, int prec)
 {
 	if (len <= prec || prec == -1)
 		return (len);
@@ -20,11 +25,11 @@ int				my_minp(int len, int prec)
 		return (prec);
 }
 
-int				pr_flag(t_printf *p)
+int		pr_flag(t_printf *p)
 {
-	char		res;
-	char		*c;
 	int		i;
+	char	res;
+	char	*c;
 
 	c = width_symbol(p);
 	res = '%';
@@ -32,10 +37,7 @@ int				pr_flag(t_printf *p)
 	if ((p->bit & FL_MINUS) > 0)
 	{
 		if ((i < p->prec) || (p->prec <= 0))
-		{
-			buffer(p, (char *)&res, 1);
-			i++;
-		}
+			buffer(p, (char *)&res, ft_onepr(i++));
 		while (i++ < p->w && p->is_w)
 			buffer(p, c, 1);
 	}
