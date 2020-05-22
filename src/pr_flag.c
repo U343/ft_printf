@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pr_flag.c                                          :+:      :+:    :+:   */
+/*   c_flag.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedavis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 16:20:21 by bedavis           #+#    #+#             */
-/*   Updated: 2020/05/20 18:13:31 by null             ###   ########.fr       */
+/*   Updated: 2020/03/17 13:10:21 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		my_minp(int len, int prec)
+int				my_minp(int len, int prec)
 {
 	if (len <= prec || prec == -1)
 		return (len);
@@ -20,12 +20,12 @@ int		my_minp(int len, int prec)
 		return (prec);
 }
 
-int	pr_flag(t_printf *p)
+int				pr_flag(t_printf *p)
 {
-	char	res;
-	char 	*c;
+	char		res;
+	char		*c;
 	int		i;
-	
+
 	c = width_symbol(p);
 	res = '%';
 	i = 0;
@@ -42,7 +42,7 @@ int	pr_flag(t_printf *p)
 	else
 	{
 		while (p->is_w && 
-			(i++ < (int)(p->w - (my_minp(1,p->prec)))))
+			(i++ < (int)(p->w - (my_minp(1, p->prec)))))
 			buffer(p, c, 1);
 		i = 0;
 		if ((i++ < p->prec) || (p->prec <= 0))
