@@ -12,6 +12,11 @@
 
 #include "printf.h"
 
+int			ft_ones(int i)
+{
+	return (1);
+}
+
 int			my_min(int len, int prec)
 {
 	if (len <= prec || prec == -1)
@@ -32,8 +37,8 @@ int			s_flag(t_printf *p)
 	c = ((p->bit & FL_ZERO) > 0) ? "0" : " ";
 	if ((p->bit & FL_MINUS) > 0)
 	{
-		while (*res && ((i++ < p->prec) || (p->prec == -1)))
-			buffer(p, res++, 1);
+		while (*res && ((i < p->prec) || (p->prec == -1)))
+			buffer(p, res++, ft_ones(i++));
 		while (i++ < p->w && p->is_w)
 			buffer(p, " ", 1);
 	}
