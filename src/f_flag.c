@@ -12,29 +12,30 @@
 
 #include "printf.h"
 
-int     ft_one(int i) {
-    return 1;
+int					ft_one(int i)
+{
+	return (1);
 }
 
-double	ft_power(double n, int power)
+double				ft_power(double n, int power)
 {
 	return (power ? n * ft_power(n, power - 1) : 1);
 }
 
-static void		ldtoa_fill(double n, t_printf *p, long value)
+static void			ldtoa_fill(double n, t_printf *p, long value)
 {
-	int		len;
-	int		i;
-	char	s[48];
+	int				len;
+	int				i;
+	char			s[48];
 
 	len = p->lenofprint - 1 - p->prec;
 	i = p->prec > 0 ? p->lenofprint : -1;
 	while (i-- && p->prec > 0)
 	{
-		s[i ] = value % 10 + '0';
+		s[i] = value % 10 + '0';
 		value /= 10;
 	}
-	value = (s[len] == '1' || (p->prec == 0 && value))? 1 : 0;
+	value = (s[len] == '1' || (p->prec == 0 && value)) ? 1 : 0;
 	p->prec > 0 ? s[len] = '.' : 0;
 	value += (long)(FT_ABS(n));
 	while (++i < len)
@@ -43,57 +44,55 @@ static void		ldtoa_fill(double n, t_printf *p, long value)
 		value /= 10;
 	}
 	(p->bit & FL_SPACE) && (p->lenofprint >= p->w) && (n >= 0) ? buffer(p, " ", 1) : 0;
-	(n < 0) || (1 / n < 0)? s[0] = '-' : 0; //try to understand if it is -0 or +0
+	(n < 0) || (1 / n < 0) ? s[0] = '-' : 0;
 	(p->bit & FL_PLUS && n >= 0) ? s[0] = '+' : 0;
-    i = p->w - p->lenofprint;
-	if (p->w > p->lenofprint) {
-        if (p->bit & FL_MINUS) {
-            //work when FL_SPACE and FL_MINUS both
-            (p->bit & FL_SPACE) && (p->lenofprint <= p->w) && (n >= 0) ? buffer(p, " ", ft_one(i--)) : 0;
-            buffer(p, s, p->lenofprint);
-            (p->bit & FL_SHARP) && (p->prec <= 0) ? buffer(p, ".", ft_one(i--))
-                                                  : 0;
-            while (i--) {
-                buffer(p, " ", 1);
-            }
-        } else {
-            (p->bit & FL_SHARP) && (p->prec <= 0) ? i-- : 0;
-            while (i--) {
-                buffer(p, " ", 1);
-            }
-            buffer(p, s, p->lenofprint);
-            (p->bit & FL_SHARP) && (p->prec <= 0) ? buffer(p, ".", 1) : 0;
-        }
-    } else {
-        buffer(p, s, p->lenofprint);
-        (p->bit & FL_SHARP) && (p->prec <= 0) ? buffer(p, ".", 1) : 0;
+	i = p->w - p->lenofprint;
+	if (p->w > p->lenofprint)
+	{
+		if (p->bit & FL_MINUS)
+		{
+			(p->bit & FL_SPACE) && (p->lenofprint <= p->w) && (n >= 0) ? buffer(p, " ", ft_one(i--)) : 0;
+			buffer(p, s, p->lenofprint);
+			(p->bit & FL_SHARP) && (p->prec <= 0) ? buffer(p, ".", ft_one(i--)) : 0;
+			while (i--)
+				buffer(p, " ", 1);
+		}
+		else
+		{
+			(p->bit & FL_SHARP) && (p->prec <= 0) ? i-- : 0;
+			while (i--)
+				buffer(p, " ", 1);
+			buffer(p, s, p->lenofprint);
+			(p->bit & FL_SHARP) && (p->prec <= 0) ? buffer(p, ".", 1) : 0;
+		}
+	}
+	else
+	{
+		buffer(p, s, p->lenofprint);
+		(p->bit & FL_SHARP) && (p->prec <= 0) ? buffer(p, ".", 1) : 0;
 	}
 }
 
-int	f_flag(t_printf *p)
+int					f_flag(t_printf *p)
 {
 	long double		n;
-	long		    tmp;
-	int			    len;
+	long			tmp;
+	int				len;
 	long double		decimal;
-	long		    value;
+	long			value;
 
-	n = (p->bit & FL_BIGL) ? (long double)va_arg(p->ap, long double) :
-	        (double)va_arg(p->ap, double);
-	//(p->f & F_ZERO) ? p->precision = p->min_length : 0;
-
+	n = (p->bit & FL_BIGL) ? (long double)va_arg(p->ap, long double) : (double)va_arg(p->ap, double);
 	p->prec = p->prec == -1 ? 6 : p->prec;
-    tmp = (long)(FT_ABS(n));
-    if (n < 0)
-        len = 1 + ((tmp == 0) ? 1 : 0);
-    else
-        len = ((tmp == 0) ? 1 : 0) + (p->bit & FL_PLUS ? 1 : 0);
-    while (tmp && ++len)
-        tmp /= 10;
-    //(p->bit & F_ZERO) ? p->prec = p->min_length : 0;
+	tmp = (long)(FT_ABS(n));
+	if (n < 0)
+		len = 1 + ((tmp == 0) ? 1 : 0);
+	else
+		len = ((tmp == 0) ? 1 : 0) + (p->bit & FL_PLUS ? 1 : 0);
+	while (tmp && ++len)
+		tmp /= 10;
 	p->lenofprint = p->prec + len + (p->prec > 0 ? 1 : 0);
 	decimal = ((n < 0.0f) ? -n : n);
-	decimal = (decimal - (long) decimal) * ft_power(10, p->prec + 1);
+	decimal = (decimal - (long)decimal) * ft_power(10, p->prec + 1);
 	decimal = ((long)decimal % 10 > 4) ? (decimal) / 10 + 1 : decimal / 10;
 	value = (int)decimal;
 	ldtoa_fill(n, p, value);

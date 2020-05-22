@@ -12,9 +12,9 @@
 
 #include "printf.h"
 
-int					ft_printf(const char *format, ...)
+int				ft_printf(const char *format, ...)
 {
-	t_printf p;
+	t_printf	p;
 
 	ft_bzero(&p, sizeof(p));
 	p.fd = 1;
@@ -31,14 +31,14 @@ int					ft_printf(const char *format, ...)
 		}
 		else
 			buffer(&p, p.format, 1);
-        (*p.format) ? ++p.format : 0;
+		(*p.format) ? ++p.format : 0;
 	}
 	write(p.fd, p.buff, p.buffer_index);
 	va_end(p.ap);
 	return (p.len);
 }
 
-void	buffer(t_printf *p, void *new, size_t size)
+void			buffer(t_printf *p, void *new, size_t size)
 {
 	int			diff;
 	long long	new_i;
