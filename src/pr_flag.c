@@ -12,7 +12,7 @@
 
 #include "printf.h"
 
-int		ft_one(int i)
+int		ft_onepr(int i)
 {
 	return (1);
 }
