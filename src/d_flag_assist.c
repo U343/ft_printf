@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   d_flag_assist.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: null <null@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bedavis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/12 15:59:22 by wanton            #+#    #+#             */
-/*   Updated: 2020/05/12 15:59:22 by wanton           ###   ########.fr       */
+/*   Created: 2020/03/13 16:20:21 by bedavis           #+#    #+#             */
+/*   Updated: 2020/03/17 13:10:21 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /*
 ** Function check flags for width and take special symbol.
 ** "Special symbol" it is symbol which will be print print_width()
-**  Symbol can be '0' or ' '
-** 			Returned: symbol for print_width()
+** Symbol can be '0' or ' '
+** Returned: symbol for print_width()
 */
 
 char	*width_symbol(t_printf *p)
