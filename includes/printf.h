@@ -64,9 +64,16 @@ typedef struct			s_printf
 
 int						ft_printf(const char *format, ...);
 void					buffer(t_printf *p, void *new, size_t size);
-void					parse(t_printf *p);
 void					res_to_buff(char *s, t_printf *p);
 
+/*
+**Parse functions
+*/
+
+void					parse(t_printf *p);
+void					true_asterisk_width(t_printf *p, int spec);
+void					true_asterisk_prec(t_printf *p, int prec);
+void					parse_size_continue(t_printf *p);
 
 /*
 **Flag functions

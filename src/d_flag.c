@@ -24,14 +24,9 @@ void		print_width(t_printf *p, size_t size)
 
 	c = width_symbol(p);
 	tmp1 = size;
-	//calculating_width(p);
-	//printf("width2 = %d\n", p->w);
-	
 	if (p->prec > 0)
 	{
 		tmp1 = size > (size_t)p->prec ? size : p->prec;
-		//printf("tmp1 = %d\n", tmp1);
-		//return ;
 		if (p->w > 0)
 		{
 			while (p->w-- > tmp1)
@@ -58,7 +53,6 @@ void		print_round(t_printf *p, size_t size)
 	if (p->prec < 0)
 		return ;
 	round = p->prec;
-	//round -= (p->type == 'o' ? 1 : 0);
 	while (round-- > size)
 		buffer(p, "0", 1);
 }
@@ -127,24 +121,16 @@ int			d_flag(t_printf *p)
 	int		base;
 	char	*res;
 	size_t	size;
-
-	//printf("prec = %d\n", p->prec);
-	//printf("width = %d\n", p->w);
-	
-	//printf("%d\n", !(p->bit & FL_MINUS));
 	
 	format = (p->type == 'x' ? 32 : 0);
 	base = (p->type == 'x' || p->type == 'X' ? 16 : 10);
 	base = (p->type == 'o' ? 8 : base);
 	res = check_type_size(p, base, format);
 	size = ft_strlen(res);
-	//printf("size = %d\n", size);
-	
 	size = check_first_space(p, size);
 	calculating_width(p);
 	if (!(p->bit & FL_MINUS))
 		print_width(p, size);
-	//return (0);
 	print_round(p, size);
 	res_to_buff(res, p);
 	if (p->bit & FL_MINUS)
