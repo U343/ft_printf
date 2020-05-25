@@ -121,7 +121,7 @@ int			d_flag(t_printf *p)
 	int		base;
 	char	*res;
 	size_t	size;
-	
+
 	format = (p->type == 'x' ? 32 : 0);
 	base = (p->type == 'x' || p->type == 'X' ? 16 : 10);
 	base = (p->type == 'o' ? 8 : base);

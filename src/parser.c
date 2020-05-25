@@ -34,8 +34,8 @@ void	parse_size(t_printf *p)
 void	parse_width(t_printf *p)
 {
 	int		spec;
-	
-	if (((*p->format > '0') && (*p->format <= '9')) || *p->format == '*' )
+
+	if (((*p->format > '0') && (*p->format <= '9')) || *p->format == '*')
 	{
 		p->is_w = 1;
 		if (*p->format == '*')
@@ -57,7 +57,7 @@ void	parse_width(t_printf *p)
 void	parse_prec(t_printf *p)
 {
 	int		prec;
-	
+
 	if (*p->format == '.')
 	{
 		p->format++;
@@ -68,7 +68,7 @@ void	parse_prec(t_printf *p)
 			if (!ft_isdigit(*p->format))
 			{
 				if (prec < 0)
-					return;
+					return ;
 				true_asterisk_prec(p, prec);
 				return ;
 			}
@@ -111,7 +111,7 @@ void	parse(t_printf *p)
 		if ((ft_strncmp(&p->type, flags[i], ft_strlen(flags[i])) == 0))
 		{
 			(*builtin_func[i])(p);
-			break;
+			break ;
 		}
 		i++;
 	}

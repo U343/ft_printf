@@ -21,7 +21,7 @@
 void	res_to_buff(char *s, t_printf *p)
 {
 	char	*tmp;
-	
+
 	if (p->prec == 0 && p->bit & ZERO_VALUE)
 		return ;
 	tmp = s;
@@ -39,7 +39,7 @@ void	res_to_buff(char *s, t_printf *p)
 char	*check_znak(long long value, t_printf *p, int base, int format)
 {
 	unsigned long long	tmp;
-	
+
 	if (value == 0)
 		p->bit |= ZERO_VALUE;
 	if (value < 0)
@@ -64,7 +64,7 @@ char	*check_znak(long long value, t_printf *p, int base, int format)
 void	true_asterisk_width(t_printf *p, int spec)
 {
 	char	*str_spec;
-	
+
 	if (spec < 0)
 	{
 		p->bit |= 1 << 3;
@@ -83,7 +83,7 @@ void	true_asterisk_width(t_printf *p, int spec)
 void	true_asterisk_prec(t_printf *p, int prec)
 {
 	char	*str_prec;
-	
+
 	p->prec = prec >= 1 ? prec : 0;
 	str_prec = ft_itoa(prec);
 	while ((*str_prec >= '0') && (*str_prec <= '9'))
