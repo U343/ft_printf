@@ -32,8 +32,7 @@ char				*ft_itoa_base(long long value, int base, int format)
 	{
 		if ((unsigned long long)value == -9223372036854775808u)
 			return ("-9223372036854775808");
-		if (base == 10)
-			neg = 1;
+		neg = (base == 10) ? 1 : neg;
 		value *= -1;
 	}
 	while (ft_pow(base, i) - 1 < (__uint128_t)value)
@@ -42,10 +41,10 @@ char				*ft_itoa_base(long long value, int base, int format)
 	nbr[i + neg] = '\0';
 	while (i-- > 0)
 	{
-		nbr[i + neg] = (value % base) + (value % base > 9 ? ('A' + format) - 10 : '0');
+		nbr[i + neg] = (value % base) + (value % base > 9 ?
+			('A' + format) - 10 : '0');
 		value = value / base;
 	}
-	if (neg)
-		nbr[0] = '-';
+	nbr[0] = (neg) ? '-' : nbr[0];
 	return (nbr);
 }

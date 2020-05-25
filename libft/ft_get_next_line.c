@@ -22,7 +22,7 @@ static int		ft_get_line(char **array, char **line)
 {
 	char		*temp;
 	char		*str;
-	
+
 	str = *array;
 	if (!(temp = ft_strchr(str, '\n')))
 		return (0);

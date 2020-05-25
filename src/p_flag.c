@@ -46,6 +46,7 @@ void	if_not_minus(t_printf *p, char *str)
 	i = 0;
 	while (i++ < (p->w - (my_max((int)ft_strlen(str) + 2, p->prec + 2))))
 		buffer(p, " ", 1);
+	i = 0;
 	buffer(p, "0x", 2);
 	while ((int)ft_strlen(str) + i++ < p->prec)
 		buffer(p, "0", 1);

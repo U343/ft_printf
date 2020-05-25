@@ -33,9 +33,9 @@ char						*ft_unsig_itoa_base(unsigned long long value,
 	nbr[i] = '\0';
 	while (i-- > 0)
 	{
-		nbr[i] = (value % base) + (value % base > 9 ? ('A' + format) - 10 : '0');
+		nbr[i] = (value % base) + (value % base > 9 ?
+			('A' + format) - 10 : '0');
 		value = value / base;
 	}
 	return (nbr);
 }
-
