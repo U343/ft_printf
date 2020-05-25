@@ -53,13 +53,10 @@ GREEN = \033[0;32m
 RED = \033[0;31m
 RESET = \033[0m
 
-all: obj $(LIBFT) $(NAME)
+all: $(LIBFT) $(NAME)
 
-obj:
+$(DIR_O)/%.o: $(DIR_S)/%.c
 		@mkdir -p $(DIR_O)
-		@echo "$(NAME): $(GREEN)$(OBJECTS_DIRECTORY) was created$(RESET)"
-
-$(DIR_O)/%.o: $(DIR_S)/%.c main.c
 		@$(CC) $(FLAGS) $(INCLUDES) -o $@ -c $<
 		@echo "\n$(NAME): $(GREEN)object file was created$(RESET)"
 
@@ -74,8 +71,8 @@ $(NAME): $(OBJS)
 	@ranlib $(NAME)
 	@echo "$(NAME): $(GREEN)Creating Printf...$(RESET)"
 
-main:
-	$(CC) $(INCLUDES) -o prog main.c -L. -lftprintf
+#main:
+#	$(CC) $(INCLUDES) -o prog main.c -L. -lftprintf
 
 
 norme:
