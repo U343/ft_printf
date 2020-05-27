@@ -54,7 +54,6 @@
 # define FT_MIN(a, b)		(a < b) ? a : b
 # define FT_MAX(a, b)		(a > b) ? a : b
 # define FT_ABS(a)			(a < 0) ? -a : a
-# define FT_DABS(a)			(a < 0.0f) ? -a : a
 
 typedef struct			s_printf
 {
