@@ -44,7 +44,7 @@ void	parse_width(t_printf *p)
 			spec = va_arg(p->ap, int);
 			if (!ft_isdigit(*p->format))
 			{
-			    p->is_w = (spec == 0) ? 0 : 1;
+				p->is_w = (spec == 0) ? 0 : 1;
 				true_asterisk_width(p, spec);
 				return ;
 			}
