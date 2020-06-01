@@ -59,11 +59,9 @@ int		p_flag(t_printf *p)
 	char		*str;
 	char		*cpy;
 	uintmax_t	num;
-	int			i;
 
 	num = (unsigned long)(va_arg(p->ap, unsigned long int));
 	num = (uintmax_t)num;
-	i = 0;
 	if (!(str = ft_itoa_base(num, 16, 32)))
 		return (-1);
 	if (p->prec == 0 && !num)

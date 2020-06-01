@@ -17,13 +17,13 @@ double				ft_power(double n, int power)
 	return (power ? n * ft_power(n, power - 1) : 1);
 }
 
-static void			ldtoa_fill_else(t_printf *p, char *s)
+static void			fill_else(t_printf *p, char *s)
 {
 	buffer(p, s, p->lenofprint);
 	(p->bit & FL_SHARP) && (p->prec <= 0) ? buffer(p, ".", 1) : 0;
 }
 
-static void			ldtoa_fill2(double n, t_printf *p, char *s, int i)
+static void			fill2(double n, t_printf *p, char *s, int i)
 {
 	i = p->w - p->lenofprint;
 	if (p->w > p->lenofprint)
@@ -48,10 +48,10 @@ static void			ldtoa_fill2(double n, t_printf *p, char *s, int i)
 		}
 	}
 	else
-		ldtoa_fill_else(p, s);
+		fill_else(p, s);
 }
 
-static void			ldtoa_fill(double n, t_printf *p, long value)
+static void			fill(double n, t_printf *p, long value)
 {
 	int				len;
 	int				i;
@@ -76,7 +76,7 @@ static void			ldtoa_fill(double n, t_printf *p, long value)
 		&& (n >= 0) ? buffer(p, " ", 1) : 0;
 	(n < 0) || (1 / n < 0) ? s[0] = '-' : 0;
 	(p->bit & FL_PLUS && n >= 0) ? s[0] = '+' : 0;
-	ldtoa_fill2(n, p, s, i);
+	fill2(n, p, s, i);
 }
 
 int					f_flag(t_printf *p)
@@ -102,6 +102,6 @@ int					f_flag(t_printf *p)
 	decimal = (decimal - (long)decimal) * ft_power(10, p->prec + 1);
 	decimal = ((long)decimal % 10 > 4) ? (decimal) / 10 + 1 : decimal / 10;
 	value = (int)decimal;
-	ldtoa_fill(n, p, value);
+	fill(n, p, value);
 	return (0);
 }
