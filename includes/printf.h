@@ -51,10 +51,7 @@
 # define ZERO_VALUE     (1 << 13)
 # define FL_BIGL        (1 << 15)
 
-# define FT_MIN(a, b)		(a < b) ? a : b
-# define FT_MAX(a, b)		(a > b) ? a : b
 # define FT_ABS(a)			(a < 0) ? -a : a
-# define FT_DABS(a)			(a < 0.0f) ? -a : a
 
 typedef struct			s_printf
 {
@@ -87,7 +84,6 @@ void					res_to_buff(char *s, t_printf *p);
 
 void					parse(t_printf *p);
 void					true_asterisk_width(t_printf *p, int spec);
-void					true_asterisk_prec(t_printf *p, int prec);
 void					parse_size_continue(t_printf *p);
 
 /*

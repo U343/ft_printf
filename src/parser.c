@@ -69,7 +69,7 @@ void	parse_prec(t_printf *p)
 			{
 				if (prec < 0)
 					return ;
-				true_asterisk_prec(p, prec);
+				p->prec = prec >= 1 ? prec : 0;
 				return ;
 			}
 		}
