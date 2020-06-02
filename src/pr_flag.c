@@ -14,7 +14,7 @@
 
 int		ft_onepr(int i)
 {
-	return (1);
+	return (1 + i - i);
 }
 
 int		my_minp(int len, int prec)

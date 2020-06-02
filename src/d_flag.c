@@ -29,7 +29,7 @@ void		print_width(t_printf *p, size_t size)
 		tmp1 = size > (size_t)p->prec ? size : p->prec;
 		if (p->w > 0)
 		{
-			while (p->w-- > tmp1)
+			while (p->w-- > (int)tmp1)
 				buffer(p, " ", 1);
 			p->w++;
 		}

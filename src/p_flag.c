@@ -22,7 +22,7 @@ int		my_max(int a, int b)
 
 int		p_one(int a)
 {
-	return (1);
+	return (1 + a - a);
 }
 
 void	if_minus(t_printf *p, char *str)

@@ -14,7 +14,7 @@
 
 int			ft_ones(int i)
 {
-	return (1);
+	return (1 + i - i);
 }
 
 int			my_min(int len, int prec)

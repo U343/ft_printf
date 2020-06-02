@@ -27,7 +27,7 @@ SOURCES =	ft_printf.c \
 
 #Compiler
 CC = gcc
-FLAGS = 
+FLAGS = -Wall -Wextra -Werror
 
 #Ft library
 LIBFT = libft
@@ -70,10 +70,6 @@ $(NAME): $(OBJS)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 	@echo "$(NAME): $(GREEN)Creating Printf...$(RESET)"
-
-#main:
-#	$(CC) $(INCLUDES) -o prog main.c -L. -lftprintf
-
 
 norme:
 	norminette ./libft/
