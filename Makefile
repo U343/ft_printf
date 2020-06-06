@@ -93,4 +93,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all obj norme main clean fclean re
+.PHONY: all obj norme clean fclean re
