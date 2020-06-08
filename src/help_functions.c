@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   help_functions.c                                   :+:      :+:    :+:   */
+/*   f_flag.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedavis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,6 +11,14 @@
 /* ************************************************************************** */
 
 #include "printf.h"
+
+long	ft_abs(long a)
+{
+	if (a < 0)
+		return (-a);
+	else
+		return (a);
+}
 
 /*
 ** Function writing string s to buffer
@@ -31,9 +39,9 @@ void	res_to_buff(char *s, t_printf *p)
 
 /*
 ** Auxiliary function for ft_unsig_itoa_base()
-** Меняет знак для отрицательных чисел и устанавливает соответствующий флаг.
-** т.е. в дальнейшем число рассматривается как положительное, а знак
-** печатается отдельно, в зависимости от флага
+** Changing sign for negative numbers and set up appropriate flag
+** so hereinafter, the number is considered as positive, and the sign
+** printed separately, depending on the flag
 */
 
 char	*check_znak(long long value, t_printf *p, int base, int format)

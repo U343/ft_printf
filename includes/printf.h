@@ -39,9 +39,9 @@
 
 /*
 ** check minus of the input value
-** Показывает напетаны ли символы +/-
-** Показывает напечатаны ли префиксы #
-** Проверка на нулевое значение
+** Shows whether +/- is printed
+** Shows whether prefix # is printed
+** Checking zero value
 ** shows 'L'
 */
 
@@ -50,8 +50,6 @@
 # define CHECK_U		(1 << 12)
 # define ZERO_VALUE     (1 << 13)
 # define FL_BIGL        (1 << 15)
-
-# define FT_ABS(a)			(a < 0) ? -a : a
 
 typedef struct			s_printf
 {
@@ -116,5 +114,6 @@ char					*check_znak(long long value,
 void					calculating_width(t_printf *p);
 void					take_symbol(t_printf *p);
 int						p_one(int a);
+long					ft_abs(long a);
 
 #endif

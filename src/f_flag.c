@@ -66,7 +66,7 @@ static void			fill(double n, t_printf *p, long long value)
 	}
 	value = (s[len] == '1' || (p->prec == 0 && value)) ? 1 : 0;
 	p->prec > 0 ? s[len] = '.' : 0;
-	value += (long)(FT_ABS(n));
+	value += (long)(ft_abs(n));
 	while (++i < len)
 	{
 		s[len - i - 1] = value % 10 + '0';
@@ -90,7 +90,7 @@ int					f_flag(t_printf *p)
 	n = (p->bit & FL_BIGL) ? (long double)va_arg(p->ap, long double) :
 			(double)va_arg(p->ap, double);
 	p->prec = p->prec == -1 ? 6 : p->prec;
-	tmp = (long)(FT_ABS(n));
+	tmp = (long)(ft_abs(n));
 	if (n < 0)
 		len = 1 + ((tmp == 0) ? 1 : 0);
 	else
