@@ -55,7 +55,7 @@ RESET = \033[0m
 
 all: $(LIBFT) $(NAME)
 
-$(DIR_O)/%.o: $(DIR_S)/%.c
+$(DIR_O)/%.o: $(DIR_S)/%.c $(HEADER)printf.h
 		@mkdir -p $(DIR_O)
 		@$(CC) $(FLAGS) $(INCLUDES) -o $@ -c $<
 		@echo "\n$(NAME): $(GREEN)object file was created$(RESET)"

@@ -14,7 +14,7 @@
 # define PRINTF_H
 
 # include <stdarg.h>
-# include "../libft/includes/libft.h"
+# include "libft.h"
 
 # define BUF_SIZE		64
 

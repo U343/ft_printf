@@ -51,7 +51,7 @@ static void			fill2(double n, t_printf *p, char *s, int i)
 		fill_else(p, s);
 }
 
-static void			fill(double n, t_printf *p, long value)
+static void			fill(double n, t_printf *p, long long value)
 {
 	int				len;
 	int				i;
@@ -85,7 +85,7 @@ int					f_flag(t_printf *p)
 	long			tmp;
 	int				len;
 	long double		decimal;
-	long			value;
+	long long		value;
 
 	n = (p->bit & FL_BIGL) ? (long double)va_arg(p->ap, long double) :
 			(double)va_arg(p->ap, double);
@@ -101,7 +101,7 @@ int					f_flag(t_printf *p)
 	decimal = ((n < 0.0f) ? -n : n);
 	decimal = (decimal - (long)decimal) * ft_power(10, p->prec + 1);
 	decimal = ((long)decimal % 10 > 4) ? (decimal) / 10 + 1 : decimal / 10;
-	value = (int)decimal;
+	value = (long long)decimal;
 	fill(n, p, value);
 	return (0);
 }
