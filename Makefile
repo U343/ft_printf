@@ -23,7 +23,8 @@ SOURCES =	ft_printf.c \
 			f_flag.c \
 			d_flag_assist.c \
 			help_functions.c \
-			init_functions.c
+			init_functions.c \
+			f_flag_func.c
 
 #Compiler
 CC = gcc

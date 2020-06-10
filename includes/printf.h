@@ -115,5 +115,6 @@ void					calculating_width(t_printf *p);
 void					take_symbol(t_printf *p);
 int						p_one(int a);
 long					ft_abs(long a);
+double					ft_power_d(double n, int power);
 
 #endif
