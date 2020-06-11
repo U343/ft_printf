@@ -115,7 +115,8 @@ int					f_flag(t_printf *p)
 	p->lenofprint = p->prec + len + (p->prec > 0 ? 1 : 0);
 	decimal = ((n < 0.0f) ? -n : n);
 	decimal = (decimal - (long long)decimal) * ft_power_d(10, p->prec + 1);
-	decimal = (ft_abs((long long)decimal % 10) > 4) ? (decimal) / 10 + 1 : decimal / 10;
+	decimal = (ft_abs((long long)decimal % 10) > 4) ?
+		(decimal) / 10 + 1 : decimal / 10;
 	value = (long long)decimal;
 	fill(n, p, value);
 	return (0);
