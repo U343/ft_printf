@@ -53,11 +53,11 @@ static int			getiandzero(char *s, t_printf *p)
 	int j;
 
 	i = 0;
-	if (p->prec < 20)
-		i = p->prec > 0 ? p->lenofprint - 1 : -1;
+	if (p->prec < 19)
+		i = p->prec > 0 ? p->lenofprint - 1 : 1;
 	else
 	{
-		i = 19 + p->lenofprint - 1 - p->prec;
+		i = 18 + p->lenofprint - 1 - p->prec;
 		j = i;
 		while (j < p->lenofprint)
 			s[j++] = '0';
@@ -71,7 +71,7 @@ static void			fill(double n, t_printf *p, long long value)
 	int				i;
 	char			*s;
 
-	len = p->lenofprint - 1 - p->prec;
+	len = p->lenofprint - p->prec - (p->prec > 0 ? 1 : 0);
 	s = ft_strnew(p->lenofprint);
 	i = getiandzero(s, p);
 	while (i > len && p->prec > 0)
@@ -79,10 +79,10 @@ static void			fill(double n, t_printf *p, long long value)
 		s[i--] = value % 10 + '0';
 		value /= 10;
 	}
-	value = (s[len] == '1' || (p->prec == 0 && value)) ? 1 : 0;
+	value = (value) ? 1 : 0;
 	p->prec > 0 ? s[len] = '.' : 0;
 	value += (long long)(ft_abs(n));
-	while (i-- > -1)
+	while (--i > -1)
 	{
 		s[i] = value % 10 + '0';
 		value /= 10;
@@ -115,7 +115,7 @@ int					f_flag(t_printf *p)
 	p->lenofprint = p->prec + len + (p->prec > 0 ? 1 : 0);
 	decimal = ((n < 0.0f) ? -n : n);
 	decimal = (decimal - (long long)decimal) * ft_power_d(10, p->prec + 1);
-	decimal = ((long long)decimal % 10 > 4) ? (decimal) / 10 + 1 : decimal / 10;
+	decimal = (ft_abs((long long)decimal % 10) > 4) ? (decimal) / 10 + 1 : decimal / 10;
 	value = (long long)decimal;
 	fill(n, p, value);
 	return (0);

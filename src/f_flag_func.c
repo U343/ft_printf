@@ -14,8 +14,8 @@
 
 double	ft_power_d(double n, int power)
 {
-	if (power < 20)
+	if (power < 19)
 		return (power ? n * ft_power_d(n, power - 1) : 1);
 	else
-		return (n * ft_power_d(n, 19));
+		return (n * ft_power_d(n, 18));
 }
